@@ -6,12 +6,12 @@ class_name Hero2D extends Sprite2D
 @onready var cur_tile: TileData = room_map.get_cell_tile_data(cur_coords)
 
 func _ready() -> void:
-	# replace spawn tile with blank tile. or. black background?
+	# TODO replace spawn tile with blank tile. 
+	# currently its a black background which may cause future problems
+	# when interacting with the tile map
 	pass
 
 
-# simple WASD one tile at a time
-# Will be turn based
 func _input(event):
 	if event is InputEventMouse: return;   # this game ignores mouse inputs
 	if event is InputEventKey:
@@ -26,13 +26,12 @@ func _input(event):
 	# the turn will process if an ability is used, and the movement will process for the current tile again
 	# in case it became dangerous or was dangerous (aoe attacks, fire)
 	var dest_tile_coords: Vector2i = _check_movement_input(event);
+	print(dest_tile_coords)  # DEBUG make sure i'm not running on wrong input
 	var dest_tile: TileData = room_map.get_cell_tile_data(dest_tile_coords);
+	# move if walkable, else, interact
+	if dest_tile.get_custom_data("is_walkable"): move_to_tile(dest_tile_coords, dest_tile);
+	# TODO interact
 	
-	# TODO check if tile is navigable before moving. else, interact
-	print(dest_tile_coords)  # DEBUG make sure i'm not running every input
-	move_to_tile(dest_tile_coords, dest_tile);
-	
-
 
 # handles movement (WASD) during input function, returns cur_coords if not moving
 func _check_movement_input(event) -> Vector2i:
