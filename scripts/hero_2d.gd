@@ -1,9 +1,10 @@
 class_name Hero2D extends Sprite2D
 
 
-@onready var room_map: TileMapLayer = get_parent()
-@onready var cur_coords: Vector2i = room_map.local_to_map(position)
-@onready var cur_tile: TileData = room_map.get_cell_tile_data(cur_coords)
+@onready var entity_map: TileMapLayer = get_parent();
+@onready var room_map: TileMapLayer = entity_map.get_parent().get_child(0);
+@onready var cur_coords: Vector2i = room_map.local_to_map(position);
+@onready var cur_tile: TileData = room_map.get_cell_tile_data(cur_coords);
 
 func _ready() -> void:
 	# TODO replace spawn tile with blank tile. 
