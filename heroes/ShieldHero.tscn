@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bbe0hgn0jfnrr"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_gcdcl"]
+[ext_resource type="Script" uid="uid://bkrt1i23u76ym" path="res://scripts/shield_hero.gd" id="2_b8nqc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8nqc"]
+atlas = ExtResource("1_gcdcl")
+region = Rect2(729, 573, 12, 12)
+
+[node name="ShieldHero" type="Sprite2D" unique_id=1572771562]
+texture_filter = 1
+texture = SubResource("AtlasTexture_b8nqc")
+script = ExtResource("2_b8nqc")
+spawn_tile_source_id = 1
