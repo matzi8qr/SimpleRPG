@@ -18,14 +18,14 @@ class_name Room2D extends Node2D
 # TODO setup directional rooms
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
 
 # Checks the targetted tile against both entity and room map and returns the tile data
 # Behavior on out of bounds? Soon it will warp to connected rooms. are all rooms 16 by 9?
 # if not the camera gotta move
-func get_cell_tile_data(tile: Vector2i):
+func get_cell_tile_data(tile: Vector2i) -> TileData:
 	# if the destination is out of bounds, for now, return null and handle in hero_2d
 	if tile.x < 0 or tile.x > _room_size.x: return null;
 	if tile.y < 0 or tile.y > _room_size.y: return null;
