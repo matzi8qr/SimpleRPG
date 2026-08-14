@@ -1,17 +1,14 @@
+# set up a custom Hero class for all of our characters to use
 class_name Hero2D extends Sprite2D
 
 
-@onready var entity_map: TileMapLayer = get_parent();
-@onready var room_map: TileMapLayer = entity_map.get_parent().get_child(0);
+@onready var room: Room2D = get_parent().get_parent();  # holy jank
+@onready var entity_map: TileMapLayer = room.get_entity_map()
+@onready var room_map: TileMapLayer = room.get_room_map();
 @onready var cur_coords: Vector2i = room_map.local_to_map(position);
 @onready var cur_tile: TileData = room_map.get_cell_tile_data(cur_coords);
 
-func _ready() -> void:
-	# TODO replace spawn tile with blank tile. 
-	# currently its a black background which may cause future problems
-	# when interacting with the tile map
-	pass
-
+var is_controlled: bool;
 
 func _input(event):
 	if event is InputEventMouse: return;   # this game ignores mouse inputs
@@ -19,7 +16,7 @@ func _input(event):
 		if event.is_echo(): return;		   # and ignores key hold inputs
 		if not event.is_pressed(): return; # and ignores key release inputs
 	
-	# TODO buffer inputs against the turns
+	# TODO buffer inputs against the turn-based system (and shifting control)
 	# TODO process actioon input as well
 	# turn action economy goes as either move/interact or action
 	
@@ -27,11 +24,13 @@ func _input(event):
 	# the turn will process if an ability is used, and the movement will process for the current tile again
 	# in case it became dangerous or was dangerous (aoe attacks, fire)
 	var dest_tile_coords: Vector2i = _check_movement_input(event);
+	var dest_tile = room.get_cell_tile_data(dest_tile_coords);
 	print(dest_tile_coords)  # DEBUG make sure i'm not running on wrong input
-	var dest_tile: TileData = room_map.get_cell_tile_data(dest_tile_coords);
-	# move if walkable, else, interact
-	if dest_tile.get_custom_data("is_walkable"): move_to_tile(dest_tile_coords, dest_tile);
-	# TODO interact
+	if not dest_tile: return; # TEMP room.get_cell_tile_data returns null if out of bounds. treat as unwalkable for now
+	
+	if dest_tile.get_custom_data("is_walkable"):  # move if walkable, else, interact
+		move_to_tile(dest_tile_coords, dest_tile);
+	# TODO else interact
 	
 
 # handles movement (WASD) during input function, returns cur_coords if not moving
