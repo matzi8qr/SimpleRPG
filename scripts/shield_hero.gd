@@ -17,6 +17,7 @@ func _setup_shield_timer():
 	shield_default_timer.one_shot = true;
 	shield_default_timer.autostart = true;
 	shield_default_timer.connect("timeout", _on_shield_timeout);
+	add_child(shield_default_timer);
 
 
 # delete shields in array and clear queue
@@ -27,14 +28,13 @@ func _on_shield_timeout():
 			entity_map.set_cell(coords, -1)
 		
 	shield_tiles.clear()
-	shield_default_timer.queue_free()
 
 
 # shield bash ability. effects in a 3 by 1 area adjacent and diagonally adjacant
 # pushes pushable entities and enemies 1 block back and stuns their action
 # also sets up shield on affected tiles that blocks projectiles for a turn
 func use_ability(dest_coords: Vector2i, _dest_tile: TileData):
-	var direction: Vector2i = cur_coords - dest_coords;
+	var direction: Vector2i = dest_coords - cur_coords;
 	
 	# get tile coords to place the temporary shield tile
 	shield_tiles.append(dest_coords)
@@ -46,11 +46,9 @@ func use_ability(dest_coords: Vector2i, _dest_tile: TileData):
 		shield_tiles.append(dest_coords + Vector2i.DOWN);
 	
 	for coord in shield_tiles:  # attempt to shield bash each entity by pushing it towards direction
-		var target_entity = entity_map.get_cell_tile_data(coord);
-		if target_entity:  # entity in spot, try to push
-			pass
-		else: entity_map.set_cell(coord, 0, SHIELD_ATLAS_TILE);  # place shield if empty
+		var tile_is_clear = room.try_push_entity(coord, direction);  # returns true if the tile is blank for shield
+		if tile_is_clear: entity_map.set_cell(coord, 0, SHIELD_ATLAS_TILE);
 		
-	add_child(shield_default_timer);  # NOTE, only do this in puzzle mode
+	shield_default_timer.start();  # NOTE, only do this in puzzle mode
 	
 	is_ability_toggled = false  # untoggle ability after using

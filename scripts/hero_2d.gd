@@ -68,7 +68,7 @@ func _check_directional_input(event) -> Vector2i:
 
 
 # handles ability. toggled with 'E' or 'Enter', directionally fired with movement ability
-func use_ability(dest_coords: Vector2i, dest_tile: TileData):
+func use_ability(_dest_coords: Vector2i, _dest_tile: TileData):
 	# to be overriden by each hero
 	pass
 	
