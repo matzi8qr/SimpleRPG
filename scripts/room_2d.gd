@@ -92,7 +92,13 @@ func build_projectile_path(projectile_path: Array[Vector2i], last_pos: Vector2i,
 	var this_pos: Vector2i = last_pos + direction;
 	var path_tile: Variant = get_cell_tile_data(this_pos);
 	
-	if not path_tile: return projectile_path;  # base case null tile out of bounds
+	if not path_tile: return projectile_path;   # base case null tile out of bounds
+	if path_tile is Entity2D and path_tile.is_opaque: 
+		projectile_path.append(this_pos);		# base case hit entity. TODO hit detection for now added as last pos
+		return projectile_path;
+	if path_tile is TileData and path_tile.get_custom_data("is_opaque"):
+		projectile_path.append(this_pos);		# base case hit wall. adding pos to path for now to show arrow hitting wall (or move to edge of tile)
+		return projectile_path;
 	
 	projectile_path.append(this_pos);  # recursive case, add this_pos to path and continue
 	return build_projectile_path(projectile_path, this_pos, direction);
