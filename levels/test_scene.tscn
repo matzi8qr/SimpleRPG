@@ -17,6 +17,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAQAAAAAAACAAAAAAAQAAAAAAADAAAAAAAAAAg
 tile_set = ExtResource("1_jdpn8")
 
 [node name="MiscTileLayer" type="TileMapLayer" parent="TestRoom" unique_id=592523366]
+z_index = 1
 texture_filter = 1
 tile_set = ExtResource("1_jdpn8")
 

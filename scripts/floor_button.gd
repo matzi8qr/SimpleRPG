@@ -18,8 +18,9 @@ var button_echo: bool;
 
 
 func _ready():
-	# set button walkable
-	is_walkable = true
+	# set button walkable and opacity
+	is_walkable = true;
+	is_opaque = false;
 	
 	# connect signals
 	game.map_update.connect(_on_map_update);

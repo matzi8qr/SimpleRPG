@@ -74,7 +74,7 @@ func try_push_entity(tile: Vector2i, direction: Vector2i) -> bool:
 			push_entity = entity;
 			break
 	
-	if not push_entity: return true;  # if entity not found, tile is empty
+	if not push_entity or not push_entity.is_opaque: return true;  # if entity not found, tile is empty
 	
 	if not is_walkable(tile + direction): return false;  # pushed into walls or out of bounds
 	# TODO chain pushing entities would be funny. for now use predefined walkability

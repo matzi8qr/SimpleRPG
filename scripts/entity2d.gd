@@ -3,6 +3,7 @@ class_name Entity2D extends Sprite2D
 
 @export var cur_coords: Vector2i;
 @export var is_walkable: bool;
+@export var is_opaque: bool = true;
 
 
 # move sprite to destination tile
