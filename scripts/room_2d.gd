@@ -41,6 +41,7 @@ func _init_entity_list():
 # Checks the targetted tile against both entity and room map and returns the tile data
 # Behavior on out of bounds? Soon it will warp to connected rooms. are all rooms 16 by 9?
 # if not the camera gotta move
+# returns null if out of bounds, entity if entity found, and tiledata if neither
 func get_cell_tile_data(tile: Vector2i) -> Variant:
 	# if the destination is out of bounds, for now, return null and handle in hero_2d
 	if tile.x < 0 or tile.x > _room_size.x: return null;
@@ -84,6 +85,18 @@ func try_push_entity(tile: Vector2i, direction: Vector2i) -> bool:
 	push_entity.move_to_tile(tile + direction, _entity_map.map_to_local(tile + direction));
 	return true;  # true if entity pushed or tile is empty
 	
+
+# recursively construct projectile path until reaching an opaque tile or entity
+# TODO interact with slant tiles and change direction
+func build_projectile_path(projectile_path: Array[Vector2i], last_pos: Vector2i, direction: Vector2i) -> Array[Vector2i]:
+	var this_pos: Vector2i = last_pos + direction;
+	var path_tile: Variant = get_cell_tile_data(this_pos);
+	
+	if not path_tile: return projectile_path;  # base case null tile out of bounds
+	
+	projectile_path.append(this_pos);  # recursive case, add this_pos to path and continue
+	return build_projectile_path(projectile_path, this_pos, direction);
+
 
 func get_map_position(local_pos: Vector2) -> Vector2i:
 	return _room_map.local_to_map(local_pos);
