@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_uaflk"]
 [ext_resource type="Script" uid="uid://bgettacd8j8w7" path="res://scripts/bow_hero.gd" id="2_y6amn"]
+[ext_resource type="PackedScene" uid="uid://cy4t43j45niia" path="res://objects/arrow_projectile.tscn" id="3_y6amn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_koswp"]
 atlas = ExtResource("1_uaflk")
@@ -12,3 +13,4 @@ z_index = 1
 texture_filter = 1
 texture = SubResource("AtlasTexture_koswp")
 script = ExtResource("2_y6amn")
+arrow_scene = ExtResource("3_y6amn")

@@ -86,26 +86,26 @@ func try_push_entity(tile: Vector2i, direction: Vector2i) -> bool:
 	return true;  # true if entity pushed or tile is empty
 	
 
-# recursively construct projectile path until reaching an opaque tile or entity
+# recusively get projectile path, ending with what it hits. allows 'null' tiles
 # TODO interact with slant tiles and change direction
-func build_projectile_path(projectile_path: Array[Vector2i], last_pos: Vector2i, direction: Vector2i) -> Array[Vector2i]:
+func get_projectile_path(last_pos: Vector2i, direction: Vector2i) -> Vector2i:
 	var this_pos: Vector2i = last_pos + direction;
 	var path_tile: Variant = get_cell_tile_data(this_pos);
 	
-	if not path_tile: return projectile_path;   # base case null tile out of bounds
-	if path_tile is Entity2D and path_tile.is_opaque: 
-		projectile_path.append(this_pos);		# base case hit entity. TODO hit detection for now added as last pos
-		return projectile_path;
-	if path_tile is TileData and path_tile.get_custom_data("is_opaque"):
-		projectile_path.append(this_pos);		# base case hit wall. adding pos to path for now to show arrow hitting wall (or move to edge of tile)
-		return projectile_path;
+	if not path_tile: return this_pos;   				# base case null tile out of bounds
+	if path_tile is Entity2D and path_tile.is_opaque:   # base case hit entity. TODO hit detection
+		return this_pos;  
+	if path_tile is TileData and path_tile.get_custom_data("is_opaque"): # base case hit wall
+		return this_pos; 
 	
-	projectile_path.append(this_pos);  # recursive case, add this_pos to path and continue
-	return build_projectile_path(projectile_path, this_pos, direction);
+	return get_projectile_path(this_pos, direction); # recursive case, check next pos
 
 
 func get_map_position(local_pos: Vector2) -> Vector2i:
 	return _room_map.local_to_map(local_pos);
+
+func get_local_position(map_pos: Vector2i) -> Vector2:
+	return _room_map.map_to_local(map_pos);
 
 func get_room_map() -> TileMapLayer:
 	return _room_map;

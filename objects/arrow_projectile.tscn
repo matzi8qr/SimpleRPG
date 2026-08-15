@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cy4t43j45niia"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_cingd"]
+[ext_resource type="Script" uid="uid://tm48p5lu44nm" path="res://scripts/arrow.gd" id="2_jdlmk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdlmk"]
+atlas = ExtResource("1_cingd")
+region = Rect2(950, 586, 12, 12)
+
+[node name="ArrowProjectile" type="Sprite2D" unique_id=2041845849]
+z_index = 2
+texture_filter = 1
+texture = SubResource("AtlasTexture_jdlmk")
+script = ExtResource("2_jdlmk")
+speed = -100.0
+metadata/_custom_type_script = "uid://tm48p5lu44nm"
