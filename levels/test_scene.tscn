@@ -22,5 +22,5 @@ tile_set = ExtResource("1_jdpn8")
 
 [node name="EntityTileLayer" type="TileMapLayer" parent="TestRoom" unique_id=1633367958]
 texture_filter = 1
-tile_map_data = PackedByteArray("AAAIAAIAAQAAAAAAAQAMAAMAAAAMACQAAAAHAAQAAAAMACQAAAAEAAYAAAB9AAQAAAAKAAIAAQAAAAAAAgA=")
+tile_map_data = PackedByteArray("AAAIAAIAAQAAAAAAAQAEAAYAAAB9AAQAAAAKAAIAAQAAAAAAAgAHAAQAAgAAAAAAAgAMAAMAAgAAAAAAAgA=")
 tile_set = ExtResource("1_jdpn8")
