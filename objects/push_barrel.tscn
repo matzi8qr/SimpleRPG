@@ -8,6 +8,7 @@ atlas = ExtResource("1_lhjts")
 region = Rect2(157, 469, 12, 12)
 
 [node name="PushBarrel" type="Sprite2D" unique_id=1410155713]
+z_index = 1
 texture_filter = 1
 texture = SubResource("AtlasTexture_bl32c")
 script = ExtResource("1_7ttkk")

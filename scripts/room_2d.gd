@@ -59,7 +59,7 @@ func is_walkable(dest_coords: Vector2i) -> bool:
 	if not dest_tile: return false;  # out of bounds or no tile found
 	
 	# if entity: check if walkable (pressure plate), for now, entities unwalkable
-	if dest_tile is Entity2D: return false;
+	if dest_tile is Entity2D: return dest_tile.is_walkable;
 	
 	# now check main layer walkability
 	return dest_tile.get_custom_data("is_walkable");
@@ -84,6 +84,9 @@ func try_push_entity(tile: Vector2i, direction: Vector2i) -> bool:
 	push_entity.move_to_tile(tile + direction, _entity_map.map_to_local(tile + direction));
 	return true;  # true if entity pushed or tile is empty
 	
+
+func get_map_position(local_pos: Vector2) -> Vector2i:
+	return _room_map.local_to_map(local_pos);
 
 func get_room_map() -> TileMapLayer:
 	return _room_map;

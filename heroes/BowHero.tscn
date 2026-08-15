@@ -8,6 +8,7 @@ atlas = ExtResource("1_uaflk")
 region = Rect2(2029, 14, 12, 12)
 
 [node name="BowHero" type="Sprite2D" unique_id=205687938]
+z_index = 1
 texture_filter = 1
 texture = SubResource("AtlasTexture_koswp")
 script = ExtResource("2_y6amn")

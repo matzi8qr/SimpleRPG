@@ -50,7 +50,6 @@ func _input(event: InputEvent) -> void:
 	# the turn will process if an ability is used, and the movement will process for the current tile again
 	# in case it became dangerous or was dangerous (aoe attacks, fire)
 	var dest_tile_coords: Vector2i = _check_directional_input(event);
-	var dest_tile = room.get_cell_tile_data(dest_tile_coords);
 	
 	if is_ability_toggled:  # use abilitiy at destination
 		selected_hero.use_ability(dest_tile_coords);
@@ -92,8 +91,8 @@ func _process(_delta: float) -> void:
 	# choose and update an action for each
 	# use a quick timer to give each one time to move
 	
-	print("world update! START HERE TOMORROW :3")
 	# signal map update to trigger metatiles (pressure plates, turrets)
+	map_update.emit()
 	
 	# await user input at the end
 	is_await_user_input = true;
