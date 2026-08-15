@@ -16,7 +16,7 @@ var projectile_triggered: bool;
 
 func _ready() -> void:
 	is_walkable = true;
-	is_opaque = false;  # counts as cover since projectiles interact with it
+	is_opaque = true;  # counts as cover since projectiles interact with it
 	
 	# connect signals
 	game.map_update.connect(_on_map_update);
