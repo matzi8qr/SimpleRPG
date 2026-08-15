@@ -6,11 +6,9 @@ var shield_tiles: Array[Vector2i];
 var shield_default_timer: Timer;
 
 func _ready() -> void:
+	super._ready();
+	game.selected_hero = self;  # default select shield hero
 	_setup_shield_timer();
-	
-	# send self up to game to add to hero party
-	game.hero_party.append(self);
-	game.selected_hero = self;
 	
 	
 # setup shield timeout for fade out
@@ -27,8 +25,8 @@ func _setup_shield_timer():
 func _on_shield_timeout():
 	# TODO lighting/saturation fade out?
 	for coords in shield_tiles:
-		if entity_map.get_cell_atlas_coords(coords) == SHIELD_ATLAS_TILE:
-			entity_map.set_cell(coords, -1)
+		if misc_map.get_cell_atlas_coords(coords) == SHIELD_ATLAS_TILE:
+			misc_map.set_cell(coords, -1)
 		
 	shield_tiles.clear()
 
@@ -36,7 +34,7 @@ func _on_shield_timeout():
 # shield bash ability. effects in a 3 by 1 area adjacent and diagonally adjacant
 # pushes pushable entities and enemies 1 block back and stuns their action
 # also sets up shield on affected tiles that blocks projectiles for a turn
-func use_ability(dest_coords: Vector2i, _dest_tile: TileData):
+func use_ability(dest_coords: Vector2i) -> void:
 	var direction: Vector2i = dest_coords - cur_coords;
 	
 	# get tile coords to place the temporary shield tile
@@ -50,6 +48,6 @@ func use_ability(dest_coords: Vector2i, _dest_tile: TileData):
 	
 	for coord in shield_tiles:  # attempt to shield bash each entity by pushing it towards direction
 		var tile_is_clear = room.try_push_entity(coord, direction);  # returns true if the tile is blank for shield
-		if tile_is_clear: entity_map.set_cell(coord, 0, SHIELD_ATLAS_TILE);
+		if tile_is_clear: misc_map.set_cell(coord, 0, SHIELD_ATLAS_TILE);
 		
 	shield_default_timer.start();  # NOTE, only do this in puzzle mode

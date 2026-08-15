@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c0hjkry811o27"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_uaflk"]
+[ext_resource type="Script" uid="uid://bgettacd8j8w7" path="res://scripts/bow_hero.gd" id="2_y6amn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_koswp"]
+atlas = ExtResource("1_uaflk")
+region = Rect2(2029, 14, 12, 12)
+
+[node name="BowHero" type="Sprite2D" unique_id=205687938]
+texture_filter = 1
+texture = SubResource("AtlasTexture_koswp")
+script = ExtResource("2_y6amn")

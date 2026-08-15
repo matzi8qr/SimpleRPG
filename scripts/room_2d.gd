@@ -7,8 +7,12 @@ class_name Room2D extends Node2D
 # TODO room scene with tile map layers and preload in _ready
 
 # references
+@onready var game: Game2D = get_parent();
 @onready var _room_map: TileMapLayer = $MainTileLayer;
+@onready var _misc_map: TileMapLayer = $MiscTileLayer;
 @onready var _entity_map: TileMapLayer = $EntityTileLayer;
+
+var entity_list: Array[Entity2D];
 
 # instance vars
 @export var _room_size: Vector2i = Vector2i(16, 9);
@@ -21,52 +25,96 @@ var on_button_presses: Array[Callable] = [func(): print("empty button pressed!")
 var on_button_releases: Array[Callable] = [func(): print("empty button released!")];
 
 
+# set up children node in process bc theyre not ready by ready
+func _process(_delta: float) -> void:
+	if entity_list.is_empty(): _init_entity_list();
+		
+
+func _init_entity_list():
+	var entity_nodes = _entity_map.get_children();
+	for entity in entity_nodes:
+		entity.cur_coords = _entity_map.local_to_map(entity.position);
+		entity_list.append(entity as Entity2D)
+	print (entity_list)
+	
+
 # Checks the targetted tile against both entity and room map and returns the tile data
 # Behavior on out of bounds? Soon it will warp to connected rooms. are all rooms 16 by 9?
 # if not the camera gotta move
-func get_cell_tile_data(tile: Vector2i) -> TileData:
+func get_cell_tile_data(tile: Vector2i) -> Variant:
 	# if the destination is out of bounds, for now, return null and handle in hero_2d
 	if tile.x < 0 or tile.x > _room_size.x: return null;
 	if tile.y < 0 or tile.y > _room_size.y: return null;
 	
 	# check entity layer first, return room tile if empty
-	var entity_tile = _entity_map.get_cell_tile_data(tile);
-	var room_tile = _room_map.get_cell_tile_data(tile);
-	return entity_tile if entity_tile else room_tile;
+	for entity in entity_list:
+		if tile == entity.cur_coords: return entity;
+	
+	return _room_map.get_cell_tile_data(tile);
 	
 
 # checks both tile layers and returns true if walkable
 func is_walkable(dest_coords: Vector2i) -> bool:
-	var dest_tile: TileData = get_cell_tile_data(dest_coords);
-	if not dest_tile:  # check alternate tile id for button = 1
-		return true if _room_map.get_cell_alternative_tile(dest_coords) == 1 else false;
+	var dest_tile = get_cell_tile_data(dest_coords);
+	if not dest_tile: return false;  # out of bounds or no tile found
 	
-	# checks Main layer walkability
-	if dest_tile.has_custom_data("is_walkable"): return dest_tile.get_custom_data("is_walkable");
-	if _entity_map.get_cell_tile_data(dest_coords): return false;  # entities arent walkable
-	return dest_tile.is_walkable;  # check metatile walkability
+	# if entity: check if walkable (pressure plate), for now, entities unwalkable
+	if dest_tile is Entity2D: return false;
+	
+	# now check main layer walkability
+	return dest_tile.get_custom_data("is_walkable");
 	
 
 # attempts to push entity in given direction. return true if entity is pushed or tile is empty
 func try_push_entity(tile: Vector2i, direction: Vector2i) -> bool:
-	var push_tile_entity: TileData = _entity_map.get_cell_tile_data(tile);
-	var dest_tile: TileData = get_cell_tile_data(tile + direction);
+	# find entity on tile
+	var push_entity: Entity2D;
+	for entity in entity_list:
+		if entity.cur_coords == tile: 
+			push_entity = entity;
+			break
 	
-	if not push_tile_entity: return true;  # nothing to push, return true
-	if not dest_tile: return false;  # destination out of bounds, returns null, return unmoved
-	if not is_walkable(tile + direction): return false;  # pushed into wall, stunned but unmoved
+	if not push_entity: return true;  # if entity not found, tile is empty
 	
-	# now 'pushes' entity
-	var source_id = _entity_map.get_cell_source_id(tile);
-	var atlas_coords = _entity_map.get_cell_atlas_coords(tile);
-	_entity_map.set_cell(tile + direction, source_id, atlas_coords);
-	_entity_map.set_cell(tile, -1);  # gets replaced by shield
+	if not is_walkable(tile + direction): return false;  # pushed into walls or out of bounds
+	# TODO chain pushing entities would be funny. for now use predefined walkability
+	# pushing things into water or lava should also work
 	
-	return true;
+	# 'pushing' the entity
+	push_entity.move_to_tile(tile + direction, _entity_map.map_to_local(tile + direction));
+	return true;  # true if entity pushed or tile is empty
+	
+	
+	#var push_tile_entity: TileData = _entity_map.get_cell_tile_data(tile);
+	#var dest_tile: TileData = get_cell_tile_data(tile + direction);
+	#var alt_tile_id: int = _entity_map.get_cell_alternative_tile(tile);   # checking for scene objects
+#
+	#if not push_tile_entity and alt_tile_id == -1: return true;  # nothing to push, return true
+	#if not dest_tile: return false;  # destination out of bounds, returns null, return unmoved
+	#if not is_walkable(tile + direction): return false;  # pushed into wall, stunned but unmoved
+	#
+	#if alt_tile_id: # brute force check for other heroes because scene tiles suck actually
+		#print("hero found at ", tile)
+		#for entity in game.hero_party:  # TODO check enemies too
+			#if tile == entity.cur_coords:
+				#entity.move_to_tile(tile + direction, dest_tile)
+				#return true;
+		#return false;  # shouldnt get here
+	#
+	## now 'pushes' entity
+	#var source_id = _entity_map.get_cell_source_id(tile);
+	#var atlas_coords = _entity_map.get_cell_atlas_coords(tile);
+	#_entity_map.set_cell(tile + direction, source_id, atlas_coords);
+	#_entity_map.set_cell(tile, -1);  # gets replaced by shield
+	#
+	#return true;
 
 
 func get_room_map() -> TileMapLayer:
 	return _room_map;
+
+func get_misc_map() -> TileMapLayer:
+	return _misc_map;
 
 func get_entity_map() -> TileMapLayer:
 	return _entity_map;

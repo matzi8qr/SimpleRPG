@@ -44,10 +44,10 @@ func _input(event: InputEvent) -> void:
 	var dest_tile = room.get_cell_tile_data(dest_tile_coords);
 	
 	if is_ability_toggled:  # use abilitiy at destination
-		selected_hero.use_ability(dest_tile_coords, dest_tile);
+		selected_hero.use_ability(dest_tile_coords);
 		is_ability_toggled = false;
 	elif room.is_walkable(dest_tile_coords):  # move if walkable, else, interact
-		selected_hero.move_to_tile(dest_tile_coords, dest_tile);
+		selected_hero.move_to_tile(dest_tile_coords, entity_map.map_to_local(dest_tile_coords));
 	# TODO else interact. todo after dialog manager
 	
 	# getting to this point in finishing the input clears the game to play on next frame
