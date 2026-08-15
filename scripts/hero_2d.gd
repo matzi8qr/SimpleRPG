@@ -3,6 +3,7 @@ class_name Hero2D extends Sprite2D
 
 
 @onready var room: Room2D = get_parent().get_parent();  # holy jank
+@onready var game: Game2D = room.get_parent(); 			# it continues
 @onready var entity_map: TileMapLayer = room.get_entity_map()
 @onready var room_map: TileMapLayer = room.get_room_map();
 @onready var cur_coords: Vector2i = room_map.local_to_map(position);
@@ -36,14 +37,17 @@ func _input(event):
 	var dest_tile = room.get_cell_tile_data(dest_tile_coords);
 	
 	print(dest_tile_coords)   # DEBUG make sure i'm not running on wrong input
-	if not dest_tile: return; # TEMP room.get_cell_tile_data returns null if out of bounds. treat as unwalkable for now
+	# if not dest_tile: return; # TEMP room.get_cell_tile_data returns null if out of bounds. treat as unwalkable for now
 	
 	if is_ability_toggled:  # use abilitiy at destination
 		use_ability(dest_tile_coords, dest_tile);
 		# consider moving in place to proc floor tile again
-	elif dest_tile.get_custom_data("is_walkable"):  # move if walkable, else, interact
+	elif room.is_walkable(dest_tile_coords):  # move if walkable, else, interact
 		move_to_tile(dest_tile_coords, dest_tile);
 	# TODO else interact. todo after dialog manager
+	
+	# NOTE TEMP DEBUG DO NOT CALL THIS SIGNAL HERE MAKE THE GAMEPLAY LOOP IN GAME2D
+	game.map_update.emit();
 	
 	# if we made it to the end of input, then the heroes 'action' would be used
 	# during the combat mechanic, passing the turn priority to enemy actions if enemy count is nonzero

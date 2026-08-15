@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_k0a45"]
 [ext_resource type="PackedScene" uid="uid://bbe0hgn0jfnrr" path="res://heroes/ShieldHero.tscn" id="2_pn86c"]
+[ext_resource type="PackedScene" uid="uid://ch5jhtuvik8tq" path="res://objects/floor_button.tscn" id="3_d75c0"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0wynk"]
 polygon = PackedVector2Array(-6, -6, 6, -6, 6, 6, -6, 6)
@@ -6423,9 +6424,13 @@ texture_region_size = Vector2i(12, 12)
 58:37/0 = 0
 59:37/0 = 0
 60:37/0 = 0
+60:37/0/custom_data_0 = true
 61:37/0 = 0
+61:37/0/custom_data_0 = true
 62:37/0 = 0
+62:37/0/custom_data_0 = true
 63:37/0 = 0
+63:37/0/custom_data_0 = true
 64:37/0 = 0
 65:37/0 = 0
 66:37/0 = 0
@@ -10487,9 +10492,13 @@ texture_region_size = Vector2i(12, 12)
 0:8/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_0o44c")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_d75c0"]
-resource_name = "characters"
+resource_name = "pawns"
 scenes/1/scene = ExtResource("2_pn86c")
 scenes/1/display_placeholder = true
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_pn86c"]
+resource_name = "metatiles"
+scenes/1/scene = ExtResource("3_d75c0")
 
 [resource]
 tile_size = Vector2i(12, 12)
@@ -10498,3 +10507,4 @@ custom_data_layer_0/name = "is_walkable"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_r3d5k")
 sources/1 = SubResource("TileSetScenesCollectionSource_d75c0")
+sources/2 = SubResource("TileSetScenesCollectionSource_pn86c")
