@@ -23,6 +23,9 @@ var entity_list: Array[Entity2D];
 # fill arrays with button functions as needed to auto connect. and override empty button func
 var on_button_presses: Array[Callable] = [func(): print("empty button pressed!")];
 var on_button_releases: Array[Callable] = [func(): print("empty button released!")];
+# levers too
+var on_lever_toggles_on: Array[Callable] = [func(): print("empty lever switched on!")];
+var on_lever_toggles_off: Array[Callable] = [func(): print("empty lever switched off!")];
 
 
 # set up children node in process bc theyre not ready by ready
@@ -94,6 +97,7 @@ func get_projectile_path(last_pos: Vector2i, direction: Vector2i) -> Vector2i:
 	
 	if not path_tile: return this_pos;   				# base case null tile out of bounds
 	if path_tile is Entity2D and path_tile.is_opaque:   # base case hit entity. TODO hit detection
+		path_tile.hit();
 		return this_pos;  
 	if path_tile is TileData and path_tile.get_custom_data("is_opaque"): # base case hit wall
 		return this_pos; 

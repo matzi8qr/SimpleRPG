@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bfv83wnfsbhdw"]
+
+[ext_resource type="Script" uid="uid://dftj0sc0rd7lx" path="res://scripts/lever.gd" id="1_61upt"]
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_cg113"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2up7"]
+atlas = ExtResource("1_cg113")
+region = Rect2(859, 482, 12, 12)
+
+[node name="Lever" type="Sprite2D" unique_id=1120760369]
+texture = SubResource("AtlasTexture_i2up7")
+script = ExtResource("1_61upt")
+metadata/_custom_type_script = "uid://dftj0sc0rd7lx"

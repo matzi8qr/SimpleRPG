@@ -10,3 +10,9 @@ class_name Entity2D extends Sprite2D
 func move_to_tile(dest_coords: Vector2i, dest_pos: Vector2) -> void:
 	position = dest_pos;
 	cur_coords = dest_coords;
+	
+
+# on_hit basically, called by Room2D for hitdetection
+# to be overriden as things get hit
+func hit() -> void:
+	pass;
