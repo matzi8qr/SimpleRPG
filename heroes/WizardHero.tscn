@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cof3kakdojk07"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_00tie"]
+[ext_resource type="Script" uid="uid://ckjirad36i1q3" path="res://scripts/wizard_hero.gd" id="1_5232v"]
+[ext_resource type="PackedScene" uid="uid://buwmxot38cny4" path="res://objects/fireball.tscn" id="3_pesvi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pesvi"]
+atlas = ExtResource("1_00tie")
+region = Rect2(2198, 365, 12, 12)
+
+[node name="WizardHero" type="Sprite2D" unique_id=288542010]
+texture_filter = 1
+texture = SubResource("AtlasTexture_pesvi")
+script = ExtResource("1_5232v")
+fireball_scene = ExtResource("3_pesvi")
+metadata/_custom_type_script = "uid://ckjirad36i1q3"

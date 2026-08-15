@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bbe0hgn0jfnrr" path="res://heroes/ShieldHero.tscn" id="2_pn86c"]
 [ext_resource type="PackedScene" uid="uid://ch5jhtuvik8tq" path="res://objects/floor_button.tscn" id="3_d75c0"]
 [ext_resource type="PackedScene" uid="uid://c0hjkry811o27" path="res://heroes/BowHero.tscn" id="3_k6ct2"]
+[ext_resource type="PackedScene" uid="uid://cof3kakdojk07" path="res://heroes/WizardHero.tscn" id="4_27rqa"]
 [ext_resource type="PackedScene" uid="uid://dv1l3ntdr6ydt" path="res://objects/push_barrel.tscn" id="5_fvvs6"]
 [ext_resource type="PackedScene" uid="uid://bfv83wnfsbhdw" path="res://objects/lever.tscn" id="6_b65ya"]
 
@@ -10580,6 +10581,7 @@ resource_name = "pawns"
 scenes/1/scene = ExtResource("2_pn86c")
 scenes/1/display_placeholder = true
 scenes/2/scene = ExtResource("3_k6ct2")
+scenes/3/scene = ExtResource("4_27rqa")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_pn86c"]
 resource_name = "objects"
