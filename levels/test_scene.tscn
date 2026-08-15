@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bjo57a7gkll5v" path="res://scripts/game.gd" id="1_0wynk"]
 [ext_resource type="Script" uid="uid://ch2lpq2yl7a88" path="res://scripts/test_room.gd" id="1_5krfb"]
 [ext_resource type="TileSet" uid="uid://d3s8xqxw8xnrg" path="res://assets/urizen_tileset.tres" id="1_jdpn8"]
+[ext_resource type="PackedScene" uid="uid://ctk6l8qmgta6i" path="res://ui/game_ui.tscn" id="4_x46hq"]
 
 [node name="Game" type="Node2D" unique_id=1675697044]
 script = ExtResource("1_0wynk")
@@ -23,5 +24,9 @@ tile_set = ExtResource("1_jdpn8")
 
 [node name="EntityTileLayer" type="TileMapLayer" parent="TestRoom" unique_id=1633367958]
 texture_filter = 1
-tile_map_data = PackedByteArray("AAAIAAIAAQAAAAAAAQAEAAYAAAB9AAQAAAAKAAIAAQAAAAAAAgAHAAQAAgAAAAAAAgAMAAMAAgAAAAAAAgAHAAcAAgAAAAAAAQAKAAcAAgAAAAAAAwAMAAUAAQAAAAAAAwAMAAEAAgAAAAAABAA=")
+tile_map_data = PackedByteArray("AAAIAAIAAQAAAAAAAQAEAAYAAAB9AAQAAAAKAAIAAQAAAAAAAgAHAAQAAgAAAAAAAgAMAAMAAgAAAAAAAgAMAAUAAQAAAAAAAwAMAAEAAgAAAAAABAAHAAYAAgAAAAAAAQAKAAYAAgAAAAAAAwA=")
 tile_set = ExtResource("1_jdpn8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=166077575]
+
+[node name="GameUI" parent="CanvasLayer" unique_id=906576097 instance=ExtResource("4_x46hq")]

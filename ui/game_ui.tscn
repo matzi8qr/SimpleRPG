@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://ctk6l8qmgta6i"]
+
+[ext_resource type="Texture2D" uid="uid://bmlmd4gltwb6y" path="res://assets/staff_icon.png" id="1_dcmab"]
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="2_w46tp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcmab"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w46tp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hrjk"]
+atlas = ExtResource("2_w46tp")
+region = Rect2(1015, 482, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pylni"]
+atlas = ExtResource("2_w46tp")
+region = Rect2(105, 599, 12, 12)
+
+[sub_resource type="Theme" id="Theme_dcmab"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vkek"]
+bg_color = Color(0, 0, 0, 1)
+corner_detail = 2
+
+[node name="GameUI" type="Panel" unique_id=1112256806]
+anchors_preset = -1
+anchor_top = 0.779
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.7919922
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dcmab")
+
+[node name="HBox" type="HBoxContainer" parent="." unique_id=906576097]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBox" unique_id=38212694]
+custom_minimum_size = Vector2(144, 0)
+layout_mode = 2
+
+[node name="ActiveIcon" type="TextureRect" parent="HBox/AspectRatioContainer" unique_id=982792004]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("1_dcmab")
+stretch_mode = 4
+
+[node name="TrayPanel" type="Panel" parent="HBox" unique_id=332036880]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w46tp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBox/TrayPanel" unique_id=1117730250]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthDisplay" type="HBoxContainer" parent="HBox/TrayPanel/VBoxContainer" unique_id=1348838959]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Heart" type="TextureRect" parent="HBox/TrayPanel/VBoxContainer/HealthDisplay" unique_id=427439541]
+texture_filter = 1
+layout_mode = 2
+texture = SubResource("AtlasTexture_7hrjk")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Heart2" type="TextureRect" parent="HBox/TrayPanel/VBoxContainer/HealthDisplay" unique_id=670068368]
+texture_filter = 1
+layout_mode = 2
+texture = SubResource("AtlasTexture_7hrjk")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Heart3" type="TextureRect" parent="HBox/TrayPanel/VBoxContainer/HealthDisplay" unique_id=976625677]
+texture_filter = 1
+layout_mode = 2
+texture = SubResource("AtlasTexture_7hrjk")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="MoneyDisplay" type="HBoxContainer" parent="HBox/TrayPanel/VBoxContainer" unique_id=373441343]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="HBox/TrayPanel/VBoxContainer/MoneyDisplay" unique_id=510387596]
+texture_filter = 1
+layout_mode = 2
+texture = SubResource("AtlasTexture_pylni")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="HBox/TrayPanel/VBoxContainer/MoneyDisplay" unique_id=873225244]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " = NaN"
+
+[node name="TextBoxPanel" type="Panel" parent="HBox/TrayPanel" unique_id=597066491]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_dcmab")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3vkek")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBox/TrayPanel/TextBoxPanel" unique_id=1642025547]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 10.0
+offset_right = -3.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 30
+text = "Did I hear ya say \"cast fireball\"?
+Sorry kiddo, only spell I know!"
+scroll_active = false
