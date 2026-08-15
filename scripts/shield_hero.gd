@@ -1,4 +1,4 @@
-extends Hero2D
+class_name ShieldHero extends Hero2D
 
 const SHIELD_ATLAS_TILE = Vector2i(28, 12);
 
@@ -6,8 +6,11 @@ var shield_tiles: Array[Vector2i];
 var shield_default_timer: Timer;
 
 func _ready() -> void:
-	is_controlled = true;   # default the shield hero to be main controlled
 	_setup_shield_timer();
+	
+	# send self up to game to add to hero party
+	game.hero_party.append(self);
+	game.selected_hero = self;
 	
 	
 # setup shield timeout for fade out
@@ -50,5 +53,3 @@ func use_ability(dest_coords: Vector2i, _dest_tile: TileData):
 		if tile_is_clear: entity_map.set_cell(coord, 0, SHIELD_ATLAS_TILE);
 		
 	shield_default_timer.start();  # NOTE, only do this in puzzle mode
-	
-	is_ability_toggled = false  # untoggle ability after using
