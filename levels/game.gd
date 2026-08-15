@@ -79,7 +79,12 @@ func _check_directional_input(event) -> Vector2i:
 func _process(_delta: float) -> void:
 	if is_await_user_input: return;
 	
+	# TODO process enemy state machines,
+	# choose and update an action for each
+	# use a quick timer to give each one time to move
+	
 	print("world update! START HERE TOMORROW :3")
+	# signal map update to trigger metatiles (pressure plates, turrets)
 	
 	# await user input at the end
 	is_await_user_input = true;
