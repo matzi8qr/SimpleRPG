@@ -10,3 +10,7 @@ func use_ability(dest_coords: Vector2i) -> void:
 	arrow.set_launch(position, cur_coords, direction);
 	room.add_child(arrow);
 	
+
+func on_interact() -> void:
+	print("My elf eyes see plenty.");
+	

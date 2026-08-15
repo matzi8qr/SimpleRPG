@@ -16,3 +16,10 @@ func move_to_tile(dest_coords: Vector2i, dest_pos: Vector2) -> void:
 # to be overriden as things get hit
 func hit() -> void:
 	pass;
+	
+
+# on_interact, even if for the most part its just a string to a dialogue
+# TODO play nice with dialogue manager, probably return a string or smth?
+# also TODO have enemies turn this into melee 'hit'
+func on_interact() -> void:
+	print("you found ", self);

@@ -56,7 +56,11 @@ func _input(event: InputEvent) -> void:
 		is_ability_toggled = false;
 	elif room.is_walkable(dest_tile_coords):  # move if walkable, else, interact
 		selected_hero.move_to_tile(dest_tile_coords, entity_map.map_to_local(dest_tile_coords));
-	# TODO else interact. todo after dialog manager
+	# TODO else interact. to start now
+	else:
+		var dest_tile: Variant = room.get_cell_tile_data(dest_tile_coords);  # null case already factored
+		if dest_tile is Entity2D: dest_tile.on_interact();  # call interact on dest tile
+		else: print("wall case", dest_tile);  # TODO add "info" layer of strings
 	
 	# getting to this point in finishing the input clears the game to play on next frame
 	# in combat: wait for all available heroes to use their action

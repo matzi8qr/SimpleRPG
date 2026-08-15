@@ -13,9 +13,11 @@ signal toggled_off;
 var is_toggled: bool;
 var is_toggled_echo: bool;
 var projectile_triggered: bool;
+var interact_triggered: bool;
+
 
 func _ready() -> void:
-	is_walkable = true;
+	is_walkable = false;
 	is_opaque = true;  # counts as cover since projectiles interact with it
 	
 	# connect signals
@@ -30,13 +32,16 @@ func _on_map_update() -> void:
 		is_toggled = not is_toggled;
 		projectile_triggered = false;
 	
-	# check entity layer for overlap
-	for entity in room.entity_list:
-		if entity is Lever: continue;  # levers don't toggle themselves
-		# TODO implement and check if entity is flying
-		if tile_pos == entity.cur_coords: 
-			is_toggled = not is_toggled;  # switch switches on overlap
-			break;
+	# check entity layer for overlap -> instead, should be on interact
+	#for entity in room.entity_list:
+		#if entity is Lever: continue;  # levers don't toggle themselves
+		## TODO implement and check if entity is flying
+		#if tile_pos == entity.cur_coords: 
+			#is_toggled = not is_toggled;  # switch switches on overlap
+			#break;
+	if interact_triggered:
+		is_toggled = not is_toggled;
+		interact_triggered = false;
 	
 	# lever logic
 	if is_toggled and not is_toggled_echo: toggled_on.emit();    # case turned on (toggle = 1, echo = 0)
@@ -45,5 +50,10 @@ func _on_map_update() -> void:
 	
 	flip_h = is_toggled;  # visual cue for lever
 
+
 func hit() -> void:
 	projectile_triggered = true;
+	
+
+func on_interact() -> void:
+	interact_triggered = true;

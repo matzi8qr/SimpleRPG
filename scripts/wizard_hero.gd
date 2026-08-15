@@ -13,3 +13,6 @@ func use_ability(dest_coords: Vector2i) -> void:
 	fireball.set_launch(position, cur_coords, direction);
 	room.add_child(fireball);
 	
+
+func on_interact() -> void:
+	print("Eh? Did somebody say 'cast fireball'?")
