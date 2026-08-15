@@ -18,7 +18,10 @@ var entity_list: Array[Entity2D];
 @export var _room_size: Vector2i = Vector2i(16, 9);
 
 # connected rooms
-# TODO setup directional rooms
+@export var room_east: Room2D;
+@export var room_north: Room2D;
+@export var room_south: Room2D;
+@export var room_west: Room2D;
 
 # fill arrays with button functions as needed to auto connect. and override empty button func
 var on_button_presses: Array[Callable] = [func(): print("empty button pressed!")];

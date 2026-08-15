@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dynq6as1sxbvy"]
 
-[ext_resource type="Script" uid="uid://bjo57a7gkll5v" path="res://levels/game.gd" id="1_0wynk"]
+[ext_resource type="Script" uid="uid://bjo57a7gkll5v" path="res://scripts/game.gd" id="1_0wynk"]
 [ext_resource type="Script" uid="uid://ch2lpq2yl7a88" path="res://scripts/test_room.gd" id="1_5krfb"]
 [ext_resource type="TileSet" uid="uid://d3s8xqxw8xnrg" path="res://assets/urizen_tileset.tres" id="1_jdpn8"]
 
