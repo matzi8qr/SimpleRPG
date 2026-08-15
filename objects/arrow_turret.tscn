@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ydeysetb2kfk"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_1e8f7"]
+[ext_resource type="Script" uid="uid://u3infbfi6f82" path="res://scripts/arrow_turret_L.gd" id="2_1e8f7"]
+[ext_resource type="PackedScene" uid="uid://cy4t43j45niia" path="res://objects/arrow_projectile.tscn" id="3_ey8ob"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8tka"]
+atlas = ExtResource("1_1e8f7")
+region = Rect2(924, 599, 12, 12)
+
+[node name="ArrowTurretL" type="Sprite2D" unique_id=1653277546]
+texture_filter = 1
+texture = SubResource("AtlasTexture_e8tka")
+flip_h = true
+script = ExtResource("2_1e8f7")
+projectile = ExtResource("3_ey8ob")
+metadata/_custom_type_script = "uid://bav382smegctv"

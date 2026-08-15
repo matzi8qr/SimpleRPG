@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cof3kakdojk07" path="res://heroes/WizardHero.tscn" id="4_27rqa"]
 [ext_resource type="PackedScene" uid="uid://dv1l3ntdr6ydt" path="res://objects/push_barrel.tscn" id="5_fvvs6"]
 [ext_resource type="PackedScene" uid="uid://bfv83wnfsbhdw" path="res://objects/lever.tscn" id="6_b65ya"]
+[ext_resource type="PackedScene" uid="uid://ydeysetb2kfk" path="res://objects/arrow_turret.tscn" id="8_ko7ng"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0wynk"]
 polygon = PackedVector2Array(-6, -6, 6, -6, 6, 6, -6, 6)
@@ -10588,6 +10589,7 @@ resource_name = "objects"
 scenes/1/scene = ExtResource("3_d75c0")
 scenes/2/scene = ExtResource("5_fvvs6")
 scenes/3/scene = ExtResource("6_b65ya")
+scenes/4/scene = ExtResource("8_ko7ng")
 
 [resource]
 tile_size = Vector2i(12, 12)
