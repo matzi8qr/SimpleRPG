@@ -84,31 +84,6 @@ func try_push_entity(tile: Vector2i, direction: Vector2i) -> bool:
 	push_entity.move_to_tile(tile + direction, _entity_map.map_to_local(tile + direction));
 	return true;  # true if entity pushed or tile is empty
 	
-	
-	#var push_tile_entity: TileData = _entity_map.get_cell_tile_data(tile);
-	#var dest_tile: TileData = get_cell_tile_data(tile + direction);
-	#var alt_tile_id: int = _entity_map.get_cell_alternative_tile(tile);   # checking for scene objects
-#
-	#if not push_tile_entity and alt_tile_id == -1: return true;  # nothing to push, return true
-	#if not dest_tile: return false;  # destination out of bounds, returns null, return unmoved
-	#if not is_walkable(tile + direction): return false;  # pushed into wall, stunned but unmoved
-	#
-	#if alt_tile_id: # brute force check for other heroes because scene tiles suck actually
-		#print("hero found at ", tile)
-		#for entity in game.hero_party:  # TODO check enemies too
-			#if tile == entity.cur_coords:
-				#entity.move_to_tile(tile + direction, dest_tile)
-				#return true;
-		#return false;  # shouldnt get here
-	#
-	## now 'pushes' entity
-	#var source_id = _entity_map.get_cell_source_id(tile);
-	#var atlas_coords = _entity_map.get_cell_atlas_coords(tile);
-	#_entity_map.set_cell(tile + direction, source_id, atlas_coords);
-	#_entity_map.set_cell(tile, -1);  # gets replaced by shield
-	#
-	#return true;
-
 
 func get_room_map() -> TileMapLayer:
 	return _room_map;

@@ -9,6 +9,7 @@ class_name Game2D extends Node2D
 # game vars
 var hero_party: Array[Hero2D];
 var selected_hero: Hero2D;
+var selected_hero_index: int = 0;
 var paused: bool;
 var is_ability_toggled: bool;
 var is_await_user_input: bool = true;
@@ -31,11 +32,19 @@ func _input(event: InputEvent) -> void:
 	# TODO buffer inputs against the turn-based system (and shifting control)
 	# turn action economy goes as either move/interact or action
 	
+	# check for swap_hero input, looping through the hero party
+	if event.is_action_pressed("swap_hero"):
+		selected_hero_index += 1;
+		if selected_hero_index == hero_party.size(): selected_hero_index = 0;
+		# TODO update bottom UI as necessary (change icon, change heart values, etc)
+		selected_hero = hero_party[selected_hero_index];
+		return;  
+	
 	# check for ability toggle first, and return - do not process movement and use action
 	if event.is_action_pressed("ui_accept"):
 		is_ability_toggled = !is_ability_toggled;
 		# TODO highlight bottom corner UI icon when ability is toggled
-		return;
+		return;  
 	
 	# on input (WASD), set dest_tile to neighboring tile or to cur_tile with no movement.
 	# the turn will process if an ability is used, and the movement will process for the current tile again
