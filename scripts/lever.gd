@@ -32,13 +32,6 @@ func _on_map_update() -> void:
 		is_toggled = not is_toggled;
 		projectile_triggered = false;
 	
-	# check entity layer for overlap -> instead, should be on interact
-	#for entity in room.entity_list:
-		#if entity is Lever: continue;  # levers don't toggle themselves
-		## TODO implement and check if entity is flying
-		#if tile_pos == entity.cur_coords: 
-			#is_toggled = not is_toggled;  # switch switches on overlap
-			#break;
 	if interact_triggered:
 		is_toggled = not is_toggled;
 		interact_triggered = false;
