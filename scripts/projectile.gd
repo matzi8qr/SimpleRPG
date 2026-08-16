@@ -1,4 +1,4 @@
-class_name Projectile extends Sprite2D
+class_name Projectile extends Area2D
 
 @onready var room: Room2D = get_parent();
 

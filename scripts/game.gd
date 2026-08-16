@@ -20,7 +20,6 @@ var is_await_user_input: bool = true;
 # add map_update signal that sounds after each game turn
 signal enemy_update;
 signal map_update;
-	
 
 # handle input inside Game script instead of multiple children
 func _input(event: InputEvent) -> void:
@@ -38,11 +37,7 @@ func _input(event: InputEvent) -> void:
 	
 	# check for swap_hero input, looping through the hero party
 	if event.is_action_pressed("swap_hero"):
-		selected_hero_index += 1;
-		if selected_hero_index == hero_party.size(): selected_hero_index = 0;
-		# TODO update bottom UI as necessary (change icon, change heart values, etc)
-		selected_hero = hero_party[selected_hero_index];
-		selected_hero.health_changed.emit();
+		swap_active_hero();
 		return;  
 	
 	# check for ability toggle first, and return - do not process movement and use action
@@ -72,8 +67,41 @@ func _input(event: InputEvent) -> void:
 	
 	# getting to this point in finishing the input clears the game to play on next frame
 	# in combat: wait for all available heroes to use their action
+	if room.has_enemies:  # case IN COMBAT - use action and swap to next hero
+		# TODO 'dim' heroes who have acted
+		selected_hero.has_action = false;
+		if swap_active_hero(): return;  # can swap hero
+		else:							# case out of actions
+			reset_hero_actions();
+			is_await_user_input = false;
+		
 	is_await_user_input = false;
 
+
+# returns true if it can swap, false if out of actions
+func swap_active_hero() -> bool:
+	if not check_active_heroes(): return false;
+	selected_hero_index += 1;
+	if selected_hero_index == hero_party.size(): selected_hero_index = 0;
+	selected_hero = hero_party[selected_hero_index];
+	if not selected_hero.has_action:  # skip hero if has no action
+		return swap_active_hero();
+		
+	selected_hero.health_changed.emit();
+	ui.set_hero_icon(selected_hero.hero_icon);
+	return true;
+
+
+func check_active_heroes() -> bool:
+	for hero in hero_party:
+		if hero.has_action: return true;
+	return false;
+	
+
+func reset_hero_actions() -> void:
+	for hero in hero_party:
+		hero.has_action = true;
+	swap_active_hero();
 
 # handles movement (WASD) during input function, returns cur_coords if not moving
 func _check_directional_input(event) -> Vector2i:
@@ -149,7 +177,6 @@ func _process(_delta: float) -> void:
 	# TODO process enemy state machines,
 	# choose and update an action for each
 	# use a quick timer to give each one time to move
-	
 	enemy_update.emit();
 	
 	# signal map update to trigger metatiles (pressure plates, turrets)

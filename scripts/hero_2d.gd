@@ -3,6 +3,8 @@ class_name Hero2D extends Entity2D
 
 
 @onready var game: Game2D = get_parent();
+@export var hero_icon: Texture;
+var has_action: bool = true;
 
 var health: int = 3;
 signal health_changed;

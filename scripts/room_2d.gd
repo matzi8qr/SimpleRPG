@@ -87,7 +87,7 @@ func try_push_entity(tile: Vector2i, direction: Vector2i) -> bool:
 			break
 	
 	 # if entity not found, tile is empty
-	if not push_entity or not push_entity.is_opaque or not push_entity.is_pushable: return true; 
+	if not push_entity or not push_entity.is_pushable: return true; 
 	
 	if not is_walkable(tile + direction): return false;  # pushed into walls or out of bounds
 	# TODO chain pushing entities would be funny. for now use predefined walkability
@@ -118,6 +118,7 @@ func check_for_enemies() -> void:
 		if entity is Enemy2D:
 			has_enemies = true;
 			return;
+	game.reset_hero_actions();
 	has_enemies = false;
 	
 

@@ -4,10 +4,15 @@ extends Panel
 
 @onready var HealthDisplay = $FormatContainer/TrayPanel/StatContainer/HealthDisplay;
 @onready var TextboxPanel = $FormatContainer/TrayPanel/TextBoxPanel;
+@onready var ActiveIcon = $FormatContainer/AspectRatioContainer/ActiveIcon;
 
 
 func _on_hero_health_changed() -> void:
 	HealthDisplay.update_hero_health(game.selected_hero.health);
+	
+
+func set_hero_icon(hero_icon: Texture) -> void:
+	ActiveIcon.texture = hero_icon;
 	
 
 # send text functions down to Textbox

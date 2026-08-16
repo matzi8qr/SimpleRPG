@@ -47,6 +47,7 @@ func _on_map_update() -> void:
 
 func hit() -> void:
 	projectile_triggered = true;
+	flip_h = not flip_h
 	
 
 func on_interact() -> String:

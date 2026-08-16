@@ -1,6 +1,8 @@
 class_name ShieldHero extends Hero2D
 
 
+@export var shield: PackedScene;
+
 var shield_tiles: Array[Vector2i];
 var shield_default_timer: Timer;
 
@@ -39,4 +41,8 @@ func use_ability(dest_coords: Vector2i) -> void:
 		var tile_is_clear = game.room.try_push_entity(coord, direction);  # returns true if the tile is blank for shield
 		if tile_is_clear: game.room.set_cell("MiscTileLayer", coord, 0, game.SHIELD_ATLAS_TILE);
 		
-	shield_default_timer.start();  # NOTE, only do this in puzzle mode
+	shield_default_timer.start();  # NOTE, only do this in puzzle mode otherwise stay
+
+
+func on_interact() -> String:
+	return "...\n.?"

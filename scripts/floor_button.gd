@@ -21,6 +21,7 @@ func _ready():
 	# set button walkable and opacity
 	is_walkable = true;
 	is_opaque = false;
+	is_pushable = false;
 	
 	# connect signals
 	game.map_update.connect(_on_map_update);

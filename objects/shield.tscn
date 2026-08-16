@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cqmb6aoi7ojh6"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_wx3sc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gace4"]
+size = Vector2(12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtsk1"]
+atlas = ExtResource("1_wx3sc")
+region = Rect2(365, 157, 12, 12)
+
+[node name="Shield" type="Area2D" unique_id=293345623]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1580772029]
+shape = SubResource("RectangleShape2D_gace4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2118749167]
+texture_filter = 1
+texture = SubResource("AtlasTexture_qtsk1")

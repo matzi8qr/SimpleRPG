@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ctk6l8qmgta6i"]
 
-[ext_resource type="Texture2D" uid="uid://bmlmd4gltwb6y" path="res://assets/staff_icon.png" id="1_dcmab"]
 [ext_resource type="Script" uid="uid://djudc60xc3ccc" path="res://ui/game_ui.gd" id="1_xh48a"]
 [ext_resource type="Script" uid="uid://clmwjgn8jeyhj" path="res://ui/health_display.gd" id="2_pylni"]
 [ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="2_w46tp"]
+[ext_resource type="Texture2D" uid="uid://sf3nb3bsn3tv" path="res://assets/shield_icon.png" id="2_xh48a"]
 [ext_resource type="PackedScene" uid="uid://dq2tgcs62hwpa" path="res://ui/heart.tscn" id="3_3vkek"]
 [ext_resource type="Script" uid="uid://cytsnepdnndaj" path="res://ui/textbox_manager.gd" id="5_3vkek"]
 
@@ -52,7 +52,7 @@ layout_mode = 2
 [node name="ActiveIcon" type="TextureRect" parent="FormatContainer/AspectRatioContainer" unique_id=982792004]
 texture_filter = 1
 layout_mode = 2
-texture = ExtResource("1_dcmab")
+texture = ExtResource("2_xh48a")
 stretch_mode = 4
 
 [node name="TrayPanel" type="Panel" parent="FormatContainer" unique_id=332036880]
