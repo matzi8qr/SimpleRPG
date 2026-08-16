@@ -3,12 +3,21 @@
 [ext_resource type="Script" uid="uid://tm48p5lu44nm" path="res://scripts/projectile.gd" id="1_ltln1"]
 [ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_sllmb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7o6fc"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sllmb"]
+size = Vector2(11, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sllmb"]
 atlas = ExtResource("1_sllmb")
 region = Rect2(976, 586, 12, 12)
 
-[node name="Fireball" type="Sprite2D" unique_id=1151354409]
+[node name="Fireball" type="Area2D" unique_id=2051632067]
 texture_filter = 1
-texture = SubResource("AtlasTexture_7o6fc")
 script = ExtResource("1_ltln1")
 metadata/_custom_type_script = "uid://tm48p5lu44nm"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2025867024]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_sllmb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1738993204]
+texture = SubResource("AtlasTexture_sllmb")
