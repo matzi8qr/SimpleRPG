@@ -15,9 +15,14 @@ var is_dead: bool;
 func _ready() -> void:
 	# connect signal
 	game.enemy_update.connect(_on_enemy_update);
+	
+	# set base texture
+	texture.set_region(Rect2(atlas_region, atlas_region_size))
 
 # signaled from game.process
 func _on_enemy_update() -> void:
+	cur_coords = game.room.get_map_position(position);
+	
 	if is_dead: return; # lol
 	
 	var threat_range: Array[Vector2i] = get_enemy_threat_range();
@@ -74,10 +79,10 @@ func pick_movement_tile(target_tile: Vector2i) -> Vector2i:
 	var possible_movement_tiles: Array[Vector2i];  # build array of adjacent walkable tiles
 	for dir in DIRECTION_LIST:
 		var tile: Vector2i = cur_coords + dir;
-		if game.room.is_walkable(tile): possible_movement_tiles.append(tile);
+		if tile and game.room.is_walkable(tile): possible_movement_tiles.append(tile);
 	
-	# return the closest tile to the target tile
-	return pick_closest_tile(target_tile, possible_movement_tiles);
+	# return the closest tile to the target tile, or self if cant move
+	return cur_coords if possible_movement_tiles.is_empty() else pick_closest_tile(target_tile, possible_movement_tiles);
 	
 
 # also to be overriden by specific enemies
@@ -92,5 +97,5 @@ func hit() -> void:
 	
 
 func on_interact() -> void:
-	# interact is melee attack in case of enemies so
+	# interact is melee attack in case of enemies sooo
 	hit();

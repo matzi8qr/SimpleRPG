@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_chnlw"]
 [ext_resource type="Script" uid="uid://l570l4oq0akh" path="res://scripts/bow_enemy.gd" id="1_j08bo"]
+[ext_resource type="PackedScene" uid="uid://cy4t43j45niia" path="res://objects/arrow_projectile.tscn" id="3_8ndxr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ndxr"]
 atlas = ExtResource("1_chnlw")
@@ -11,6 +12,7 @@ region = Rect2(2029, 53, 12, 12)
 texture_filter = 1
 texture = SubResource("AtlasTexture_8ndxr")
 script = ExtResource("1_j08bo")
+arrow_scene = ExtResource("3_8ndxr")
 atlas_region = Vector2(2029, 53)
 atlas_region_destroyed = Vector2(2614, 53)
 metadata/_custom_type_script = "uid://l570l4oq0akh"

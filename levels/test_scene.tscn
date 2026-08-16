@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bjo57a7gkll5v" path="res://scripts/game.gd" id="1_0wynk"]
 [ext_resource type="PackedScene" uid="uid://7gu1h5x72bia" path="res://levels/test_room.tscn" id="3_0wynk"]
+[ext_resource type="Script" uid="uid://djudc60xc3ccc" path="res://ui/game_ui.gd" id="3_ah1fx"]
 [ext_resource type="PackedScene" uid="uid://bbe0hgn0jfnrr" path="res://heroes/ShieldHero.tscn" id="3_x46hq"]
 [ext_resource type="PackedScene" uid="uid://ctk6l8qmgta6i" path="res://ui/game_ui.tscn" id="4_x46hq"]
 [ext_resource type="PackedScene" uid="uid://c0hjkry811o27" path="res://heroes/BowHero.tscn" id="5_ohqux"]
@@ -13,6 +14,7 @@ script = ExtResource("1_0wynk")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=166077575]
 
 [node name="GameUI" parent="CanvasLayer" unique_id=906576097 instance=ExtResource("4_x46hq")]
+script = ExtResource("3_ah1fx")
 
 [node name="ShieldHero" parent="." unique_id=1572771562 instance=ExtResource("3_x46hq")]
 z_index = 3
@@ -33,3 +35,7 @@ scale = Vector2(6, 6)
 cur_coords = Vector2i(11, 3)
 
 [node name="TestRoom" parent="." unique_id=112578745 instance=ExtResource("3_0wynk")]
+
+[connection signal="health_changed" from="ShieldHero" to="CanvasLayer/GameUI" method="_on_hero_health_changed"]
+[connection signal="health_changed" from="BowHero" to="CanvasLayer/GameUI" method="_on_hero_health_changed"]
+[connection signal="health_changed" from="WizardHero" to="CanvasLayer/GameUI" method="_on_hero_health_changed"]

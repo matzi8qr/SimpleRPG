@@ -3,7 +3,9 @@ class_name Hero2D extends Entity2D
 
 
 @onready var game: Game2D = get_parent();
+
 var health: int = 3;
+signal health_changed;
 
 func _ready() -> void:
 	# send self up to game to add to hero party
@@ -17,4 +19,10 @@ func use_ability(_dest_coords: Vector2i) -> void:
 
 # override from entity2d
 func hit() -> void:
-	print('ow');
+	health -= 1;
+	health_changed.emit();
+	
+	# hero death? temporarily remove from hero party and force switch party
+	# dont remove, allow revive
+	# prevent warps? heroes are not deleted, make a way to "move" them off screen on warp
+	# for now do ui

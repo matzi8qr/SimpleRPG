@@ -44,7 +44,7 @@ func _init_entity_list():
 	entity_list.append_array(game.hero_party);
 	for entity in entity_nodes:
 		entity.cur_coords = _entity_map.local_to_map(entity.position);
-		entity_list.append(entity as Entity2D);
+		entity_list.append(entity);
 	print (entity_list)
 	
 

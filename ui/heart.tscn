@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dq2tgcs62hwpa"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_j2oec"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hrjk"]
+atlas = ExtResource("1_j2oec")
+region = Rect2(1015, 482, 12, 12)
+
+[node name="Heart" type="TextureRect" unique_id=1621499941]
+texture_filter = 1
+texture = SubResource("AtlasTexture_7hrjk")
+expand_mode = 2
+stretch_mode = 4

@@ -1,6 +1,9 @@
 class_name BowEnemy extends Enemy2D;
 
 
+@export var arrow_scene: PackedScene;
+var target_direction: Vector2i;
+
 # override for ranged protectile
 func get_enemy_threat_range() -> Array[Vector2i]:
 	var threat_range: Array[Vector2i];
@@ -15,6 +18,7 @@ func get_enemy_threat_range() -> Array[Vector2i]:
 				if query_tile in threat_range: continue # don't add repeats
 				if query_tile == cur_coords:   			# flag can attack
 					target_hero = hero;
+					target_direction = dir * -1;
 					can_attack = true;
 					return [query_tile];
 				if game.room.is_walkable(query_tile): # only add to threat range if walkable
@@ -24,4 +28,8 @@ func get_enemy_threat_range() -> Array[Vector2i]:
 	
 
 func attack() -> void:
-	print("shooty shoot! got you!")
+	# shoot bow
+	var arrow: Projectile = arrow_scene.instantiate();
+	arrow.set_launch(position, cur_coords, target_direction);
+	game.room.add_child(arrow);
+	
