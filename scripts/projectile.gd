@@ -15,6 +15,7 @@ func _process(delta: float) -> void:
 	# will be awkward with slant bounces though
 	# fully change rotation so this moves fine?
 	position += transform.x * speed * delta;
+	print(position, global_position)
 	
 	# queue free when arrow reaches destination tile
 	if room.get_map_position(position) == arrow_dest:
@@ -22,7 +23,7 @@ func _process(delta: float) -> void:
 	
 
 func set_launch(position: Vector2, launch_pos: Vector2i, direction: Vector2i) -> void:
-	self.position = position;
+	self.position = position;  
 	self.launch_pos = launch_pos;
 	self.direction = direction;
 	

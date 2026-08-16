@@ -1,10 +1,12 @@
 class_name Game2D extends Node2D
 
 
+const SHIELD_ATLAS_TILE = Vector2i(28, 12);
+
 # references
-@onready var room: Room2D = get_child(0);
-@onready var room_map: TileMapLayer = room.get_node("MainTileLayer");
-@onready var entity_map: TileMapLayer = room.get_node("EntityTileLayer");
+@onready var room: Room2D = get_child(4);
+#@onready var room_map: TileMapLayer = room.get_node("MainTileLayer");
+#@onready var entity_map: TileMapLayer = room.get_node("EntityTileLayer");
 
 # game vars
 var hero_party: Array[Hero2D];
@@ -55,11 +57,12 @@ func _input(event: InputEvent) -> void:
 		selected_hero.use_ability(dest_tile_coords);
 		is_ability_toggled = false;
 	elif room.is_walkable(dest_tile_coords):  # move if walkable, else, interact
-		selected_hero.move_to_tile(dest_tile_coords, entity_map.map_to_local(dest_tile_coords));
+		selected_hero.move_to_tile(dest_tile_coords, room.get_local_position(dest_tile_coords));
 	# TODO else interact. to start now
 	else:
-		var dest_tile: Variant = room.get_cell_tile_data(dest_tile_coords);  # null case already factored
-		if dest_tile is Entity2D: dest_tile.on_interact();  # call interact on dest tile
+		var dest_tile: Variant = room.get_cell_tile_data(dest_tile_coords); 
+		if not dest_tile: warp_to(selected_hero.cur_coords, dest_tile_coords);  # null case out of bounds, try to warp
+		elif dest_tile is Entity2D: dest_tile.on_interact();  # call interact on dest tile
 		else: print("wall case", dest_tile);  # TODO add "info" layer of strings
 	
 	# getting to this point in finishing the input clears the game to play on next frame
@@ -73,18 +76,65 @@ func _check_directional_input(event) -> Vector2i:
 	var cur_coords: Vector2i = selected_hero.cur_coords;
 	var dest_tile_coords: Vector2i = cur_coords;
 	if event.is_action_pressed("ui_up"): 
-		dest_tile_coords = room_map.get_neighbor_cell(cur_coords, TileSet.CELL_NEIGHBOR_TOP_SIDE);
+		dest_tile_coords = room.get_room_map().get_neighbor_cell(cur_coords, TileSet.CELL_NEIGHBOR_TOP_SIDE);
 	elif event.is_action_pressed("ui_left"): 
-		dest_tile_coords = room_map.get_neighbor_cell(cur_coords, TileSet.CELL_NEIGHBOR_LEFT_SIDE);
+		dest_tile_coords = room.get_room_map().get_neighbor_cell(cur_coords, TileSet.CELL_NEIGHBOR_LEFT_SIDE);
 		selected_hero.flip_h = false;
 	elif event.is_action_pressed("ui_down"): 
-		dest_tile_coords = room_map.get_neighbor_cell(cur_coords, TileSet.CELL_NEIGHBOR_BOTTOM_SIDE);
+		dest_tile_coords = room.get_room_map().get_neighbor_cell(cur_coords, TileSet.CELL_NEIGHBOR_BOTTOM_SIDE);
 	elif event.is_action_pressed("ui_right"): 
-		dest_tile_coords = room_map.get_neighbor_cell(cur_coords, TileSet.CELL_NEIGHBOR_RIGHT_SIDE);
+		dest_tile_coords = room.get_room_map().get_neighbor_cell(cur_coords, TileSet.CELL_NEIGHBOR_RIGHT_SIDE);
 		selected_hero.flip_h = true;
 	
 	return dest_tile_coords;
 
+# map transition logic
+# check direction of warp based on dest coords, then
+# change scene to destination room
+# new room has to spawn and add heroes to entity list
+func warp_to(cur_coords: Vector2i, dest_coords: Vector2i) -> void:
+	var warp_direction: Vector2i;
+	var warp_coords: Vector2i = cur_coords;
+	
+	# check warp direction
+	if dest_coords.x < 0:  # exit west side
+		warp_direction = Vector2i.LEFT;
+		warp_coords.x = room._room_size.x - 1;
+	elif dest_coords.y < 0:  # exit north side
+		warp_direction = Vector2i.UP;
+		warp_coords.y = room._room_size.y - 1;
+	elif dest_coords.x >= room._room_size.x: #exit east side
+		warp_direction = Vector2i.RIGHT;
+		warp_coords.x = 0;
+	elif dest_coords.y >= room._room_size.y: # exit south side
+		warp_direction = Vector2i.DOWN;
+		warp_coords.y = 0;
+		
+	# get new room from RoomLayout
+	RoomLayout.cur_index += warp_direction;
+	var new_room: Room2D = RoomLayout.load_room_at(RoomLayout.cur_index);
+	add_child(new_room);
+	room = new_room;
+		
+	# move heroes to scene
+	for hero in hero_party:
+		if hero == selected_hero:
+			hero.move_to_tile(warp_coords, new_room.get_local_position(warp_coords));
+		else: try_warp_companion(hero, new_room, warp_coords, warp_direction);
+	
+	# delete old node (ineffecient but clasic rpg to have the room be reset)
+	get_child(4).queue_free()
+	
+
+func try_warp_companion(companion: Hero2D, new_room: Room2D, warp_dest: Vector2i, warp_direction: Vector2i) -> void:
+	var try_warp_coords = warp_dest;
+	for i in range(-2, 3):  # checks tiles within +- 2 tiles of hero warp. if maps are made with 3 wide warps it should be ok
+		if warp_direction == Vector2i.LEFT or warp_direction == Vector2i.RIGHT: 
+			try_warp_coords.y += i;  # check y tiles on horizontal warp.. vice versa
+		else: try_warp_coords.x += i;
+		if new_room.is_walkable(try_warp_coords):
+			companion.move_to_tile(try_warp_coords, new_room.get_local_position(try_warp_coords));
+			return;
 
 # game loop of the rpg. waits for player input and then
 # resolves enemies and the map in that order
@@ -101,3 +151,12 @@ func _process(_delta: float) -> void:
 	# await user input at the end
 	is_await_user_input = true;
 	
+
+func _on_shield_timeout() -> void:
+	# TODO lighting/saturation fade out?
+	var misc_map = room.get_node("MiscTileLayer");
+	for coords in hero_party[0].shield_tiles:
+		if misc_map.get_cell_atlas_coords(coords) == SHIELD_ATLAS_TILE:
+			misc_map.set_cell(coords, -1)
+		
+	hero_party[0].shield_tiles.clear()

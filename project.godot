@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="SimpleRPG"
+run/main_scene="uid://dynq6as1sxbvy"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+RoomLayout="*uid://dcxejaaqn8m1g"
 
 [editor]
 

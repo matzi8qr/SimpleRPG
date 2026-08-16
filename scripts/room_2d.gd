@@ -15,13 +15,13 @@ class_name Room2D extends Node2D
 var entity_list: Array[Entity2D];
 
 # instance vars
-@export var _room_size: Vector2i = Vector2i(16, 9);
+@export var _room_size: Vector2i = Vector2i(16, 7);
 
 # connected rooms
-@export var room_east: Room2D;
-@export var room_north: Room2D;
-@export var room_south: Room2D;
-@export var room_west: Room2D;
+#@export var room_east: PackedScene;
+#@export var room_north: PackedScene;
+#@export var room_south: PackedScene;
+#@export var room_west: PackedScene;
 
 # fill arrays with button functions as needed to auto connect. and override empty button func
 var on_button_presses: Array[Callable] = [func(): print("empty button pressed!")];
@@ -31,6 +31,9 @@ var on_lever_toggles_on: Array[Callable] = [func(): print("empty lever switched 
 var on_lever_toggles_off: Array[Callable] = [func(): print("empty lever switched off!")];
 
 
+func _ready() -> void:
+	scale = Vector2(6.0, 6.0);
+
 # set up children node in process bc theyre not ready by ready
 func _process(_delta: float) -> void:
 	if entity_list.is_empty(): _init_entity_list();
@@ -38,9 +41,10 @@ func _process(_delta: float) -> void:
 
 func _init_entity_list():
 	var entity_nodes = _entity_map.get_children();
+	entity_list.append_array(game.hero_party);
 	for entity in entity_nodes:
 		entity.cur_coords = _entity_map.local_to_map(entity.position);
-		entity_list.append(entity as Entity2D)
+		entity_list.append(entity as Entity2D);
 	print (entity_list)
 	
 
@@ -88,7 +92,7 @@ func try_push_entity(tile: Vector2i, direction: Vector2i) -> bool:
 	# pushing things into water or lava should also work
 	
 	# 'pushing' the entity
-	push_entity.move_to_tile(tile + direction, _entity_map.map_to_local(tile + direction));
+	push_entity.move_to_tile(tile + direction, get_local_position(tile + direction));
 	return true;  # true if entity pushed or tile is empty
 	
 
@@ -108,11 +112,16 @@ func get_projectile_path(last_pos: Vector2i, direction: Vector2i) -> Vector2i:
 	return get_projectile_path(this_pos, direction); # recursive case, check next pos
 
 
+func set_cell(layer: String, coord: Vector2i, source_id: int, atlas_coords: Vector2i) -> void:
+	var map_layer: TileMapLayer = get_node(layer);
+	map_layer.set_cell(coord, source_id, atlas_coords);
+	
+
 func get_map_position(local_pos: Vector2) -> Vector2i:
 	return _room_map.local_to_map(local_pos);
 
 func get_local_position(map_pos: Vector2i) -> Vector2:
-	return _room_map.map_to_local(map_pos);
+	return _room_map.map_to_local(map_pos) * 6;
 
 func get_room_map() -> TileMapLayer:
 	return _room_map;

@@ -8,7 +8,7 @@ atlas = ExtResource("1_cingd")
 region = Rect2(950, 586, 12, 12)
 
 [node name="ArrowProjectile" type="Sprite2D" unique_id=2041845849]
-z_index = 2
+z_index = 7
 texture_filter = 1
 texture = SubResource("AtlasTexture_jdlmk")
 script = ExtResource("2_jdlmk")
