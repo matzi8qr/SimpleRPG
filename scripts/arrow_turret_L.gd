@@ -5,5 +5,5 @@ func _ready() -> void:
 	direction = Vector2i.LEFT;
 
 
-func on_interact() -> void:
-	print("This is a turret. You might want to move.");
+func on_interact() -> String:
+	return "This is a turret. You might want to move.";

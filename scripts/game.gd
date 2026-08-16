@@ -5,6 +5,7 @@ const SHIELD_ATLAS_TILE = Vector2i(28, 12);
 
 # references
 @onready var room: Room2D = get_child(4);
+@onready var ui: Panel = $CanvasLayer/GameUI;
 #@onready var room_map: TileMapLayer = room.get_node("MainTileLayer");
 #@onready var entity_map: TileMapLayer = room.get_node("EntityTileLayer");
 
@@ -12,7 +13,7 @@ const SHIELD_ATLAS_TILE = Vector2i(28, 12);
 var hero_party: Array[Hero2D];
 var selected_hero: Hero2D;
 var selected_hero_index: int = 0;
-var paused: bool;
+var input_locked: bool;
 var is_ability_toggled: bool;
 var is_await_user_input: bool = true;
 
@@ -23,7 +24,7 @@ signal map_update;
 
 # handle input inside Game script instead of multiple children
 func _input(event: InputEvent) -> void:
-	if paused: return;
+	if input_locked: return;
 	if not is_await_user_input: return;
 	
 	if event is InputEventMouse: return;   # this game ignores mouse inputs
@@ -41,6 +42,7 @@ func _input(event: InputEvent) -> void:
 		if selected_hero_index == hero_party.size(): selected_hero_index = 0;
 		# TODO update bottom UI as necessary (change icon, change heart values, etc)
 		selected_hero = hero_party[selected_hero_index];
+		selected_hero.health_changed.emit();
 		return;  
 	
 	# check for ability toggle first, and return - do not process movement and use action
@@ -63,8 +65,10 @@ func _input(event: InputEvent) -> void:
 	else:
 		var dest_tile: Variant = room.get_cell_tile_data(dest_tile_coords); 
 		if not dest_tile: warp_to(selected_hero.cur_coords, dest_tile_coords);  # null case out of bounds, try to warp
-		elif dest_tile is Entity2D: dest_tile.on_interact();  # call interact on dest tile
-		else: print("wall case", dest_tile);  # TODO add "info" layer of strings
+		elif dest_tile is Entity2D: # call interact on dest tile and send string to dialogue
+			var interact_text: String = dest_tile.on_interact(); 
+			if not interact_text.is_empty(): ui.add_text(interact_text);
+		else: ui.add_text("That's a wall.");  # TODO add "info" layer of strings
 	
 	# getting to this point in finishing the input clears the game to play on next frame
 	# in combat: wait for all available heroes to use their action
@@ -145,6 +149,7 @@ func _process(_delta: float) -> void:
 	# TODO process enemy state machines,
 	# choose and update an action for each
 	# use a quick timer to give each one time to move
+	
 	enemy_update.emit();
 	
 	# signal map update to trigger metatiles (pressure plates, turrets)
@@ -162,3 +167,7 @@ func _on_shield_timeout() -> void:
 			misc_map.set_cell(coords, -1)
 		
 	hero_party[0].shield_tiles.clear()
+
+
+func on_lock_player_input(): input_locked = true;
+func on_unlock_player_input(): input_locked = false;

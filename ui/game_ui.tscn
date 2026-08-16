@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://ctk6l8qmgta6i"]
 
 [ext_resource type="Texture2D" uid="uid://bmlmd4gltwb6y" path="res://assets/staff_icon.png" id="1_dcmab"]
+[ext_resource type="Script" uid="uid://djudc60xc3ccc" path="res://ui/game_ui.gd" id="1_xh48a"]
 [ext_resource type="Script" uid="uid://clmwjgn8jeyhj" path="res://ui/health_display.gd" id="2_pylni"]
 [ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="2_w46tp"]
 [ext_resource type="PackedScene" uid="uid://dq2tgcs62hwpa" path="res://ui/heart.tscn" id="3_3vkek"]
+[ext_resource type="Script" uid="uid://cytsnepdnndaj" path="res://ui/textbox_manager.gd" id="5_3vkek"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcmab"]
 bg_color = Color(0, 0, 0, 1)
@@ -33,6 +35,7 @@ offset_top = -0.7919922
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_dcmab")
+script = ExtResource("1_xh48a")
 
 [node name="FormatContainer" type="HBoxContainer" parent="." unique_id=906576097]
 layout_mode = 1
@@ -118,6 +121,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_dcmab")
 theme_override_styles/panel = SubResource("StyleBoxFlat_3vkek")
+script = ExtResource("5_3vkek")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="FormatContainer/TrayPanel/TextBoxPanel" unique_id=1642025547]
 texture_filter = 1
@@ -132,6 +136,7 @@ offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
 text = "Did I hear ya say \"cast fireball\"?
 Sorry kiddo, only spell I know!"
 scroll_active = false

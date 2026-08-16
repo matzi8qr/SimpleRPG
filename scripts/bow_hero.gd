@@ -13,6 +13,6 @@ func use_ability(dest_coords: Vector2i) -> void:
 	
 	
 
-func on_interact() -> void:
-	print("My elf eyes see plenty.");
+func on_interact() -> String:
+	return "My elf eyes see plenty.";
 	

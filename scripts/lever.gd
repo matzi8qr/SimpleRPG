@@ -19,6 +19,7 @@ var interact_triggered: bool;
 func _ready() -> void:
 	is_walkable = false;
 	is_opaque = true;  # counts as cover since projectiles interact with it
+	is_pushable = false;
 	
 	# connect signals
 	game.map_update.connect(_on_map_update);
@@ -48,5 +49,6 @@ func hit() -> void:
 	projectile_triggered = true;
 	
 
-func on_interact() -> void:
+func on_interact() -> String:
 	interact_triggered = true;
+	return "";

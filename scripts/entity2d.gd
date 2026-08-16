@@ -4,6 +4,7 @@ class_name Entity2D extends Sprite2D
 @export var cur_coords: Vector2i;
 @export var is_walkable: bool;
 @export var is_opaque: bool = true;
+@export var is_pushable: bool = true;
 
 @export var atlas_region: Vector2;
 @export var atlas_region_destroyed: Vector2;
@@ -25,5 +26,5 @@ func hit() -> void:
 # on_interact, even if for the most part its just a string to a dialogue
 # TODO play nice with dialogue manager, probably return a string or smth?
 # also TODO have enemies turn this into melee 'hit'
-func on_interact() -> void:
-	print("you found ", self);
+func on_interact() -> String:
+	return "you found: " + self.to_string();

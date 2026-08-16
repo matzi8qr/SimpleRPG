@@ -15,5 +15,5 @@ func use_ability(dest_coords: Vector2i) -> void:
 	game.room.add_child(fireball);
 	
 
-func on_interact() -> void:
-	print("Eh? Did somebody say 'cast fireball'?")
+func on_interact() -> String:
+	return "Eh? Did somebody say 'cast fireball'?";

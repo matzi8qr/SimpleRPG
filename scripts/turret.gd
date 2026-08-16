@@ -27,5 +27,5 @@ func _on_map_update() -> void:
 
 func _launch_projectile() -> void:
 	var shot = projectile.instantiate(); 
-	shot.set_launch(position, tile_pos, direction);
+	shot.set_launch(position, cur_coords, direction);
 	room.add_child(shot);

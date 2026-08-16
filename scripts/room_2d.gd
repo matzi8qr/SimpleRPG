@@ -13,6 +13,7 @@ class_name Room2D extends Node2D
 @onready var _entity_map: TileMapLayer = $EntityTileLayer;
 
 var entity_list: Array[Entity2D];
+var has_enemies: bool;
 
 # instance vars
 @export var _room_size: Vector2i = Vector2i(16, 7);
@@ -24,11 +25,11 @@ var entity_list: Array[Entity2D];
 #@export var room_west: PackedScene;
 
 # fill arrays with button functions as needed to auto connect. and override empty button func
-var on_button_presses: Array[Callable] = [func(): print("empty button pressed!")];
-var on_button_releases: Array[Callable] = [func(): print("empty button released!")];
+var on_button_presses: Array[Callable] = [func(): game.ui.add_text("empty button pressed!")];
+var on_button_releases: Array[Callable] = [func(): game.ui.add_text("empty button released!")];
 # levers too
-var on_lever_toggles_on: Array[Callable] = [func(): print("empty lever switched on!")];
-var on_lever_toggles_off: Array[Callable] = [func(): print("empty lever switched off!")];
+var on_lever_toggles_on: Array[Callable] = [func(): game.ui.add_text("empty lever switched on!")];
+var on_lever_toggles_off: Array[Callable] = [func(): game.ui.add_text("empty lever switched off!")];
 
 
 func _ready() -> void:
@@ -43,9 +44,9 @@ func _init_entity_list():
 	var entity_nodes = _entity_map.get_children();
 	entity_list.append_array(game.hero_party);
 	for entity in entity_nodes:
+		if entity is Enemy2D: has_enemies = true;
 		entity.cur_coords = _entity_map.local_to_map(entity.position);
 		entity_list.append(entity);
-	print (entity_list)
 	
 
 # Checks the targetted tile against both entity and room map and returns the tile data
@@ -85,7 +86,8 @@ func try_push_entity(tile: Vector2i, direction: Vector2i) -> bool:
 			push_entity = entity;
 			break
 	
-	if not push_entity or not push_entity.is_opaque: return true;  # if entity not found, tile is empty
+	 # if entity not found, tile is empty
+	if not push_entity or not push_entity.is_opaque or not push_entity.is_pushable: return true; 
 	
 	if not is_walkable(tile + direction): return false;  # pushed into walls or out of bounds
 	# TODO chain pushing entities would be funny. for now use predefined walkability
@@ -110,6 +112,14 @@ func get_projectile_path(last_pos: Vector2i, direction: Vector2i) -> Vector2i:
 	
 	return get_projectile_path(this_pos, direction); # recursive case, check next pos
 
+
+func check_for_enemies() -> void:
+	for entity in entity_list:
+		if entity is Enemy2D:
+			has_enemies = true;
+			return;
+	has_enemies = false;
+	
 
 func set_cell(layer: String, coord: Vector2i, source_id: int, atlas_coords: Vector2i) -> void:
 	var map_layer: TileMapLayer = get_node(layer);

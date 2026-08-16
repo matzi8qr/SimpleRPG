@@ -11,10 +11,13 @@ var target_hero: Hero2D;
 var can_attack: bool;
 var is_dead: bool;
 
+signal enemy_dies;
+
 
 func _ready() -> void:
 	# connect signal
 	game.enemy_update.connect(_on_enemy_update);
+	enemy_dies.connect(game.room.check_for_enemies);
 	
 	# set base texture
 	texture.set_region(Rect2(atlas_region, atlas_region_size))
@@ -26,8 +29,6 @@ func _on_enemy_update() -> void:
 	if is_dead: return; # lol
 	
 	var threat_range: Array[Vector2i] = get_enemy_threat_range();
-	print(threat_range)
-	
 	# TODO process attack!
 	if can_attack: 
 		attack();
@@ -36,7 +37,6 @@ func _on_enemy_update() -> void:
 	
 	# now pick our destination out of threat_range by closeness
 	var target_tile: Vector2i = pick_closest_tile(cur_coords, threat_range);
-	print(target_tile)
 	
 	# move towards dest_tile
 	var dest_tile: Vector2i = pick_movement_tile(target_tile);
@@ -94,8 +94,10 @@ func hit() -> void:
 	is_dead = true;
 	texture.set_region(Rect2(atlas_region_destroyed, atlas_region_size));
 	game.room.entity_list.erase(self);
+	enemy_dies.emit();
 	
 
-func on_interact() -> void:
+func on_interact() -> String:
 	# interact is melee attack in case of enemies sooo
 	hit();
+	return "";
