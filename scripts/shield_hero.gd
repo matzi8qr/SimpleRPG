@@ -1,9 +1,9 @@
 class_name ShieldHero extends Hero2D
 
 
-@export var shield: PackedScene;
+var shield: Resource = preload("res://objects/shield.tscn")
 
-var shield_tiles: Array[Vector2i];
+var shields: Array[Shield];
 var shield_default_timer: Timer;
 
 func _ready() -> void:
@@ -29,6 +29,7 @@ func use_ability(dest_coords: Vector2i) -> void:
 	var direction: Vector2i = dest_coords - cur_coords;
 	
 	# get tile coords to place the temporary shield tile
+	var shield_tiles: Array[Vector2i];
 	shield_tiles.append(dest_coords)
 	if direction.x == 0:    # on up/down, hit left/right diagonals
 		shield_tiles.append(dest_coords + Vector2i.LEFT);
@@ -39,9 +40,14 @@ func use_ability(dest_coords: Vector2i) -> void:
 	
 	for coord in shield_tiles:  # attempt to shield bash each entity by pushing it towards direction
 		var tile_is_clear = game.room.try_push_entity(coord, direction);  # returns true if the tile is blank for shield
-		if tile_is_clear: game.room.set_cell("MiscTileLayer", coord, 0, game.SHIELD_ATLAS_TILE);
+		if tile_is_clear: # game.room.set_cell("MiscTileLayer", coord, 0, game.SHIELD_ATLAS_TILE);
+			var new_shield: Shield = shield.instantiate();
+			new_shield.position = game.room.get_local_position(coord) / 6;  # arrow scaling same thing
+			game.room.add_child(new_shield);
+			shields.append(new_shield);
 		
-	shield_default_timer.start();  # NOTE, only do this in puzzle mode otherwise stay
+	if not game.room.has_enemies:
+		shield_default_timer.start();  # NOTE, only do this in puzzle mode otherwise stay
 
 
 func on_interact() -> String:

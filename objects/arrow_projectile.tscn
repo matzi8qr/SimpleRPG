@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cy4t43j45niia"]
 
 [ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_cingd"]
+[ext_resource type="Script" uid="uid://tm48p5lu44nm" path="res://scripts/projectile.gd" id="1_jdlmk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cingd"]
 size = Vector2(8, 3)
@@ -9,9 +10,12 @@ size = Vector2(8, 3)
 atlas = ExtResource("1_cingd")
 region = Rect2(950, 586, 12, 12)
 
-[node name="ArrowProjectile" type="Area2D" unique_id=132369536]
+[node name="ArrowProjectile" type="Area2D" unique_id=119357874]
 z_index = 7
 texture_filter = 1
+script = ExtResource("1_jdlmk")
+speed = -200.0
+metadata/_custom_type_script = "uid://tm48p5lu44nm"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1489555400]
 position = Vector2(0, 0.5)
@@ -19,3 +23,5 @@ shape = SubResource("RectangleShape2D_cingd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1204219443]
 texture = SubResource("AtlasTexture_cingd")
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

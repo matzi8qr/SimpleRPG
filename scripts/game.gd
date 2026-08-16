@@ -10,6 +10,8 @@ const SHIELD_ATLAS_TILE = Vector2i(28, 12);
 #@onready var entity_map: TileMapLayer = room.get_node("EntityTileLayer");
 
 # game vars
+var is_process_turn: bool;
+
 var hero_party: Array[Hero2D];
 var selected_hero: Hero2D;
 var selected_hero_index: int = 0;
@@ -17,9 +19,12 @@ var input_locked: bool;
 var is_ability_toggled: bool;
 var is_await_user_input: bool = true;
 
+var projectile_pause: bool;
+
 # add map_update signal that sounds after each game turn
 signal enemy_update;
 signal map_update;
+signal projectile_despawn;
 
 # handle input inside Game script instead of multiple children
 func _input(event: InputEvent) -> void:
@@ -173,28 +178,51 @@ func try_warp_companion(companion: Hero2D, new_room: Room2D, warp_dest: Vector2i
 # resolves enemies and the map in that order
 func _process(_delta: float) -> void:
 	if is_await_user_input: return;
+	if is_process_turn: return;
+	else: _process_turn();
 	
-	# TODO process enemy state machines,
-	# choose and update an action for each
-	# use a quick timer to give each one time to move
+
+func _process_turn() -> void:
+	is_process_turn = true;
+	
+	# first get player input
+	if is_await_user_input: return;
+	
+	# then wait for projectiles
+	if projectile_pause: await projectile_despawn;
+	
+	# update enemies
 	enemy_update.emit();
 	
-	# signal map update to trigger metatiles (pressure plates, turrets)
+	# wait for projectiles
+	if projectile_pause: await projectile_despawn;
+	
+	# update world and do the same thing
 	map_update.emit();
 	
-	# await user input at the end
-	is_await_user_input = true;
+	if projectile_pause: await projectile_despawn;
 	
+	room.clear_shields();
+	is_await_user_input = true;
+	is_process_turn = false;
 
 func _on_shield_timeout() -> void:
-	# TODO lighting/saturation fade out?
-	var misc_map = room.get_node("MiscTileLayer");
-	for coords in hero_party[0].shield_tiles:
-		if misc_map.get_cell_atlas_coords(coords) == SHIELD_ATLAS_TILE:
-			misc_map.set_cell(coords, -1)
-		
-	hero_party[0].shield_tiles.clear()
+	pass
+	## TODO lighting/saturation fade out?
+	#var misc_map = room.get_node("MiscTileLayer");
+	#for coords in hero_party[0].shield_tiles:
+		#if misc_map.get_cell_atlas_coords(coords) == SHIELD_ATLAS_TILE:
+			#misc_map.set_cell(coords, -1)
+		#
+	#hero_party[0].shield_tiles.clear()
 
+func on_projectile_spawn() -> void:
+	projectile_pause = true;
+	
+
+func on_projectile_despawn() -> void:
+	projectile_pause = false;
+	projectile_despawn.emit()
 
 func on_lock_player_input(): input_locked = true;
 func on_unlock_player_input(): input_locked = false;

@@ -127,6 +127,11 @@ func set_cell(layer: String, coord: Vector2i, source_id: int, atlas_coords: Vect
 	map_layer.set_cell(coord, source_id, atlas_coords);
 	
 
+func clear_shields() -> void:
+	for shield in game.hero_party[0].shields:  # stinky smelly bad
+		shield.queue_free();
+	game.hero_party[0].shields.clear();
+
 func get_map_position(local_pos: Vector2) -> Vector2i:
 	return _room_map.local_to_map(local_pos);
 

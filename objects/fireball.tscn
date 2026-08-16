@@ -10,7 +10,7 @@ size = Vector2(11, 6)
 atlas = ExtResource("1_sllmb")
 region = Rect2(976, 586, 12, 12)
 
-[node name="Fireball" type="Area2D" unique_id=2051632067]
+[node name="Fireball" type="Area2D" unique_id=1766836271]
 texture_filter = 1
 script = ExtResource("1_ltln1")
 metadata/_custom_type_script = "uid://tm48p5lu44nm"

@@ -11,7 +11,6 @@ func use_ability(dest_coords: Vector2i) -> void:
 	# since things are scaled by 6 and godot will do whatever it wants with that 6
 	game.room.add_child(arrow);
 	
-	
 
 func on_interact() -> String:
 	return "My elf eyes see plenty.";
