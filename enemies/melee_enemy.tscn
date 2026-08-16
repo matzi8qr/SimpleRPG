@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://ddpre0urxkb73"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_6c4pj"]
+[ext_resource type="Script" uid="uid://cj41fuf5pbx8t" path="res://scripts/enemy2d.gd" id="1_35qiv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5c0pr"]
+atlas = ExtResource("1_6c4pj")
+region = Rect2(1626, 53, 12, 12)
+
+[node name="MeleeEnemy" type="Sprite2D" unique_id=2053710499]
+texture_filter = 1
+texture = SubResource("AtlasTexture_5c0pr")
+script = ExtResource("1_35qiv")
+metadata/_custom_type_script = "uid://cj41fuf5pbx8t"

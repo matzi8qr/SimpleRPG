@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://daqqxy4n3deud"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_chnlw"]
+[ext_resource type="Script" uid="uid://l570l4oq0akh" path="res://scripts/bow_enemy.gd" id="1_j08bo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ndxr"]
+atlas = ExtResource("1_chnlw")
+region = Rect2(2029, 53, 12, 12)
+
+[node name="BowEnemy" type="Sprite2D" unique_id=1458708959]
+texture_filter = 1
+texture = SubResource("AtlasTexture_8ndxr")
+script = ExtResource("1_j08bo")
+metadata/_custom_type_script = "uid://l570l4oq0akh"

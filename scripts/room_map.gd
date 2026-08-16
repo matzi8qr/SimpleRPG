@@ -2,13 +2,13 @@ extends Node
 
 static var room_layout: Array[Array];  # use 2d array for world map
 static var layout_size: int = 8;
-static var cur_index: Vector2i = Vector2i(3, 3);
+static var cur_index: Vector2i = Vector2i(0, 3);
 
 func _ready() -> void:
 	_create_grid();
 	
-	room_layout[3][3] = load("res://levels/test_room.tscn");
-	room_layout[3][2] = load("res://levels/test_scene_north.tscn");
+	room_layout[0][3] = load("res://levels/test_room.tscn");
+	room_layout[0][2] = load("res://levels/test_scene_north.tscn");
 	
 
 func _create_grid() -> void:

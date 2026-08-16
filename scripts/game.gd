@@ -17,6 +17,7 @@ var is_ability_toggled: bool;
 var is_await_user_input: bool = true;
 
 # add map_update signal that sounds after each game turn
+signal enemy_update;
 signal map_update;
 	
 
@@ -144,9 +145,10 @@ func _process(_delta: float) -> void:
 	# TODO process enemy state machines,
 	# choose and update an action for each
 	# use a quick timer to give each one time to move
+	enemy_update.emit();
 	
 	# signal map update to trigger metatiles (pressure plates, turrets)
-	map_update.emit()
+	map_update.emit();
 	
 	# await user input at the end
 	is_await_user_input = true;

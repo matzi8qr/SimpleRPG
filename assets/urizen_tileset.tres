@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c0hjkry811o27" path="res://heroes/BowHero.tscn" id="3_k6ct2"]
 [ext_resource type="PackedScene" uid="uid://cof3kakdojk07" path="res://heroes/WizardHero.tscn" id="4_27rqa"]
 [ext_resource type="PackedScene" uid="uid://dv1l3ntdr6ydt" path="res://objects/push_barrel.tscn" id="5_fvvs6"]
+[ext_resource type="PackedScene" uid="uid://ddpre0urxkb73" path="res://enemies/melee_enemy.tscn" id="5_ytuxx"]
 [ext_resource type="PackedScene" uid="uid://bfv83wnfsbhdw" path="res://objects/lever.tscn" id="6_b65ya"]
+[ext_resource type="PackedScene" uid="uid://daqqxy4n3deud" path="res://enemies/BowEnemy.tscn" id="6_vlcrh"]
 [ext_resource type="PackedScene" uid="uid://ydeysetb2kfk" path="res://objects/arrow_turret.tscn" id="8_ko7ng"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0wynk"]
@@ -10583,6 +10585,8 @@ scenes/1/scene = ExtResource("2_pn86c")
 scenes/1/display_placeholder = true
 scenes/2/scene = ExtResource("3_k6ct2")
 scenes/3/scene = ExtResource("4_27rqa")
+scenes/4/scene = ExtResource("5_ytuxx")
+scenes/5/scene = ExtResource("6_vlcrh")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_pn86c"]
 resource_name = "objects"
