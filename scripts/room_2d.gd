@@ -104,7 +104,6 @@ func get_projectile_path(last_pos: Vector2i, direction: Vector2i) -> Vector2i:
 	
 	if not path_tile: return this_pos;   				# base case null tile out of bounds
 	if path_tile is Entity2D and path_tile.is_opaque:   # base case hit entity. TODO hit detection
-		path_tile.hit();
 		return this_pos;  
 	if path_tile is TileData and path_tile.get_custom_data("is_opaque"): # base case hit wall
 		return this_pos; 

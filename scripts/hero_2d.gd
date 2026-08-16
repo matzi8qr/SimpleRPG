@@ -3,6 +3,7 @@ class_name Hero2D extends Entity2D
 
 
 @onready var game: Game2D = get_parent();
+var health: int = 3;
 
 func _ready() -> void:
 	# send self up to game to add to hero party
@@ -13,8 +14,7 @@ func _ready() -> void:
 func use_ability(_dest_coords: Vector2i) -> void:
 	# to be overriden by each hero
 	pass
-	
 
-#func move_to_tile(dest_coords: Vector2i, dest_pos: Vector2) -> void:
-	#position = dest_pos;
-	#cur_coords = dest_coords;
+# override from entity2d
+func hit() -> void:
+	print('ow');

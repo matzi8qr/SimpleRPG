@@ -9,6 +9,7 @@ const DIRECTION_LIST = [Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN, Vector2i.RIGH
 
 var target_hero: Hero2D;
 var can_attack: bool;
+var is_dead: bool;
 
 
 func _ready() -> void:
@@ -17,6 +18,8 @@ func _ready() -> void:
 
 # signaled from game.process
 func _on_enemy_update() -> void:
+	if is_dead: return; # lol
+	
 	var threat_range: Array[Vector2i] = get_enemy_threat_range();
 	print(threat_range)
 	
@@ -77,5 +80,13 @@ func pick_movement_tile(target_tile: Vector2i) -> Vector2i:
 	return pick_closest_tile(target_tile, possible_movement_tiles);
 	
 
+# also to be overriden by specific enemies
 func attack() -> void:
-	print("stabby stab! your dead now!")
+	target_hero.hit();
+	
+
+func hit() -> void:
+	print("DEFEATED")
+	is_dead = true;
+	texture.set_region(Rect2(atlas_region_destroyed, atlas_region_size));
+	game.room.entity_list.erase(self);

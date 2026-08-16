@@ -11,4 +11,6 @@ region = Rect2(2029, 53, 12, 12)
 texture_filter = 1
 texture = SubResource("AtlasTexture_8ndxr")
 script = ExtResource("1_j08bo")
+atlas_region = Vector2(2029, 53)
+atlas_region_destroyed = Vector2(2614, 53)
 metadata/_custom_type_script = "uid://l570l4oq0akh"

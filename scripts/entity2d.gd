@@ -5,6 +5,10 @@ class_name Entity2D extends Sprite2D
 @export var is_walkable: bool;
 @export var is_opaque: bool = true;
 
+@export var atlas_region: Vector2;
+@export var atlas_region_destroyed: Vector2;
+const atlas_region_size = Vector2(12.0, 12.0);
+
 
 # move sprite to destination tile
 func move_to_tile(dest_coords: Vector2i, dest_pos: Vector2) -> void:
