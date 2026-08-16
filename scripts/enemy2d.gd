@@ -86,7 +86,11 @@ func attack() -> void:
 	
 
 func hit() -> void:
-	print("DEFEATED")
 	is_dead = true;
 	texture.set_region(Rect2(atlas_region_destroyed, atlas_region_size));
 	game.room.entity_list.erase(self);
+	
+
+func on_interact() -> void:
+	# interact is melee attack in case of enemies so
+	hit();
