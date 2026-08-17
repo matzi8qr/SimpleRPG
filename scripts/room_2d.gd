@@ -18,12 +18,6 @@ var has_enemies: bool;
 # instance vars
 @export var _room_size: Vector2i = Vector2i(16, 7);
 
-# connected rooms
-#@export var room_east: PackedScene;
-#@export var room_north: PackedScene;
-#@export var room_south: PackedScene;
-#@export var room_west: PackedScene;
-
 # fill arrays with button functions as needed to auto connect. and override empty button func
 var on_button_presses: Array[Callable] = [func(): game.ui.add_text("empty button pressed!")];
 var on_button_releases: Array[Callable] = [func(): game.ui.add_text("empty button released!")];

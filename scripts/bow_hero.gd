@@ -1,7 +1,15 @@
 class_name BowHero extends Hero2D
 
-@export var arrow_scene: PackedScene;
+var arrow_scene := load("res://objects/arrow_projectile.tscn");
 
+
+func _ready() -> void:
+	super._ready();
+	# potential dirty spawn fix
+	move_to_tile(Vector2i(9, 5), game.room.get_local_position(Vector2(9, 5)));
+	
+	hero_icon = load("res://assets/bow_icon.png");
+	
 
 func use_ability(dest_coords: Vector2i) -> void:
 	var direction: Vector2i = dest_coords - cur_coords;

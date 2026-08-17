@@ -14,6 +14,9 @@ func _ready() -> void:
 	room_layout[3][3] = load("res://levels/path_room.tscn");
 	room_layout[3][2] = load("res://levels/path_room_1.tscn");
 	room_layout[3][1] = load("res://levels/path_room_2.tscn");
+	room_layout[3][0] = load("res://levels/goblin_camp.tscn");
+	room_layout[4][1] = load("res://levels/path_room_3.tscn");
+	room_layout[3][4] = load("res://levels/wizard_room.tscn");
 	
 
 func _create_grid() -> void:

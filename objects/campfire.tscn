@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c6kjsfync5mc6"]
+
+[ext_resource type="Script" uid="uid://bpj6eluvcpgnv" path="res://scripts/campfire.gd" id="1_nnaeb"]
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_roq2a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d75au"]
+atlas = ExtResource("1_roq2a")
+region = Rect2(1, 547, 12, 12)
+
+[node name="Campfire" type="Sprite2D" unique_id=722464183]
+texture = SubResource("AtlasTexture_d75au")
+script = ExtResource("1_nnaeb")
+metadata/_custom_type_script = "uid://bpj6eluvcpgnv"

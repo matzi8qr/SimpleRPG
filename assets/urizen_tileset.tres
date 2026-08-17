@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://0p7cmwlafmaf" path="res://objects/deernpc.tscn" id="8_synfb"]
 [ext_resource type="PackedScene" uid="uid://cykoul5p7dwli" path="res://objects/tutorial_barrel.tscn" id="11_eu8at"]
 [ext_resource type="PackedScene" uid="uid://yqicrgunc8nj" path="res://objects/firewood_barrel.tscn" id="13_ho1ur"]
+[ext_resource type="PackedScene" uid="uid://c6kjsfync5mc6" path="res://objects/campfire.tscn" id="15_mvb67"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0wynk"]
 polygon = PackedVector2Array(-6, -6, 6, -6, 6, 6, -6, 6)
@@ -1987,8 +1988,11 @@ texture_region_size = Vector2i(12, 12)
 1:10/0 = 0
 2:10/0 = 0
 3:10/0 = 0
+3:10/0/custom_data_0 = true
 4:10/0 = 0
+4:10/0/custom_data_2 = "It's seen better days."
 5:10/0 = 0
+5:10/0/custom_data_2 = "It's seen better days."
 6:10/0 = 0
 7:10/0 = 0
 8:10/0 = 0
@@ -2331,11 +2335,17 @@ texture_region_size = Vector2i(12, 12)
 165:11/0 = 0
 166:11/0 = 0
 0:12/0 = 0
+0:12/0/custom_data_2 = "Looks refreshing."
 1:12/0 = 0
+1:12/0/custom_data_2 = "Looks refreshing."
 2:12/0 = 0
+2:12/0/custom_data_2 = "Looks refreshing."
 3:12/0 = 0
+3:12/0/custom_data_2 = "Looks refreshing."
 4:12/0 = 0
+4:12/0/custom_data_2 = "Looks refreshing."
 5:12/0 = 0
+5:12/0/custom_data_2 = "Looks refreshing."
 6:12/0 = 0
 7:12/0 = 0
 8:12/0 = 0
@@ -3707,6 +3717,7 @@ texture_region_size = Vector2i(12, 12)
 26:20/0 = 0
 27:20/0 = 0
 28:20/0 = 0
+28:20/0/custom_data_1 = true
 29:20/0 = 0
 30:20/0 = 0
 31:20/0 = 0
@@ -6544,6 +6555,7 @@ texture_region_size = Vector2i(12, 12)
 10:37/0 = 0
 11:37/0 = 0
 12:37/0 = 0
+12:37/0/custom_data_2 = "This barrel really doesn't feel like moving."
 13:37/0 = 0
 14:37/0 = 0
 15:37/0 = 0
@@ -10680,6 +10692,7 @@ scenes/3/scene = ExtResource("6_b65ya")
 scenes/4/scene = ExtResource("8_ko7ng")
 scenes/5/scene = ExtResource("11_eu8at")
 scenes/6/scene = ExtResource("13_ho1ur")
+scenes/7/scene = ExtResource("15_mvb67")
 
 [resource]
 tile_size = Vector2i(12, 12)

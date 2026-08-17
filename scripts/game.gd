@@ -10,6 +10,10 @@ const SHIELD_ATLAS_TILE = Vector2i(28, 12);
 #@onready var entity_map: TileMapLayer = room.get_node("EntityTileLayer");
 
 # game vars
+var flag_got_bow_hero: bool;
+var flag_solved_ruins_2: bool;
+var flag_wizard_get: bool;
+
 var is_process_turn: bool;
 
 var hero_party: Array[Hero2D];

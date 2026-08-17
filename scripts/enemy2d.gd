@@ -34,6 +34,8 @@ func _on_enemy_update() -> void:
 		can_attack = false;
 		return;
 	
+	if threat_range.is_empty(): return;
+	
 	# now pick our destination out of threat_range by closeness
 	var target_tile: Vector2i = pick_closest_tile(cur_coords, threat_range);
 	
