@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dqnyvw17jo87y"
+path="res://.godot/imported/Deep Forest -Combat.mp3-c6d8c7f6f3073e1575a2bcc2086c9d57.mp3str"
+
+[deps]
+
+source_file="res://audio/Music/Deep Forest -Combat.mp3"
+dest_files=["res://.godot/imported/Deep Forest -Combat.mp3-c6d8c7f6f3073e1575a2bcc2086c9d57.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -30,6 +30,10 @@ signal enemy_update;
 signal map_update;
 signal projectile_despawn;
 
+func _ready() -> void:
+	MusicController.play_music()
+	MusicController.play_music_silent()
+
 # handle input inside Game script instead of multiple children
 func _input(event: InputEvent) -> void:
 	if input_locked: return;
@@ -209,7 +213,10 @@ func _process_turn() -> void:
 	
 	if projectile_pause: await projectile_despawn;
 	
-	if room.has_enemies: room.clear_shields();
+	if room.has_enemies: 
+		room.clear_shields();
+		MusicController.play_combat_music();
+	else: MusicController.play_peace_music();
 	is_await_user_input = true;
 	is_process_turn = false;
 
