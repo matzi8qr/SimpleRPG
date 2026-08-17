@@ -7,8 +7,13 @@ static var cur_index: Vector2i = Vector2i(0, 3);
 func _ready() -> void:
 	_create_grid();
 	
-	room_layout[0][3] = load("res://levels/test_room.tscn");
-	room_layout[0][2] = load("res://levels/test_scene_north.tscn");
+	room_layout[0][3] = load("res://levels/ruins_room.tscn");
+	room_layout[1][3] = load("res://levels/ruins_room_1.tscn");
+	room_layout[2][3] = load("res://levels/ruins_room_2.tscn");
+	room_layout[2][2] = load("res://levels/ruins_room_3.tscn");
+	room_layout[3][3] = load("res://levels/path_room.tscn");
+	room_layout[3][2] = load("res://levels/path_room_1.tscn");
+	room_layout[3][1] = load("res://levels/path_room_2.tscn");
 	
 
 func _create_grid() -> void:

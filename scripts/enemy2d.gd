@@ -5,7 +5,6 @@ class_name Enemy2D extends Entity2D;
 
 const DIRECTION_LIST = [Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN, Vector2i.RIGHT];
 
-@onready var game: Game2D = get_tree().root.get_node("Game");
 
 var target_hero: Hero2D;
 var can_attack: bool;

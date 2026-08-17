@@ -4,7 +4,7 @@ class_name Game2D extends Node2D
 const SHIELD_ATLAS_TILE = Vector2i(28, 12);
 
 # references
-@onready var room: Room2D = get_child(4);
+@onready var room: Room2D = $RuinsRoom;
 @onready var ui: Panel = $CanvasLayer/GameUI;
 #@onready var room_map: TileMapLayer = room.get_node("MainTileLayer");
 #@onready var entity_map: TileMapLayer = room.get_node("EntityTileLayer");
@@ -68,7 +68,9 @@ func _input(event: InputEvent) -> void:
 		elif dest_tile is Entity2D: # call interact on dest tile and send string to dialogue
 			var interact_text: String = dest_tile.on_interact(); 
 			if not interact_text.is_empty(): ui.add_text(interact_text);
-		else: ui.add_text("That's a wall.");  # TODO add "info" layer of strings
+		else: # use add "info" layer of strings
+			var interact_text: String = dest_tile.get_custom_data("interact_string");
+			ui.add_text(interact_text);
 	
 	# getting to this point in finishing the input clears the game to play on next frame
 	# in combat: wait for all available heroes to use their action
@@ -152,6 +154,7 @@ func warp_to(cur_coords: Vector2i, dest_coords: Vector2i) -> void:
 	RoomLayout.cur_index += warp_direction;
 	var new_room: Room2D = RoomLayout.load_room_at(RoomLayout.cur_index);
 	add_child(new_room);
+	room.queue_free();
 	room = new_room;
 		
 	# move heroes to scene
@@ -161,7 +164,7 @@ func warp_to(cur_coords: Vector2i, dest_coords: Vector2i) -> void:
 		else: try_warp_companion(hero, new_room, warp_coords, warp_direction);
 	
 	# delete old node (ineffecient but clasic rpg to have the room be reset)
-	get_child(4).queue_free()
+	
 	
 
 func try_warp_companion(companion: Hero2D, new_room: Room2D, warp_dest: Vector2i, warp_direction: Vector2i) -> void:
@@ -202,19 +205,12 @@ func _process_turn() -> void:
 	
 	if projectile_pause: await projectile_despawn;
 	
-	room.clear_shields();
+	if room.has_enemies: room.clear_shields();
 	is_await_user_input = true;
 	is_process_turn = false;
 
 func _on_shield_timeout() -> void:
-	pass
-	## TODO lighting/saturation fade out?
-	#var misc_map = room.get_node("MiscTileLayer");
-	#for coords in hero_party[0].shield_tiles:
-		#if misc_map.get_cell_atlas_coords(coords) == SHIELD_ATLAS_TILE:
-			#misc_map.set_cell(coords, -1)
-		#
-	#hero_party[0].shield_tiles.clear()
+	room.clear_shields();
 
 func on_projectile_spawn() -> void:
 	projectile_pause = true;

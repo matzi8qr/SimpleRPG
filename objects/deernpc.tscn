@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://0p7cmwlafmaf"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_j8pyv"]
+[ext_resource type="Script" uid="uid://dnobm8nqe75th" path="res://scripts/deernpc.gd" id="2_j8pyv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jy5x"]
+atlas = ExtResource("1_j8pyv")
+region = Rect2(131, 209, 12, 12)
+
+[node name="DeerNpc" type="Sprite2D" unique_id=1761279824]
+texture_filter = 1
+texture = SubResource("AtlasTexture_2jy5x")
+script = ExtResource("2_j8pyv")
+metadata/_custom_type_script = "uid://cg0d0ytshw1ti"

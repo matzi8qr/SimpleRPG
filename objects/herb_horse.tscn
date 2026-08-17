@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dh172hf7n0q2k"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_kjn4i"]
+[ext_resource type="Script" uid="uid://bqqbxk2ubnowo" path="res://herb_horse.gd" id="2_kjn4i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plm06"]
+atlas = ExtResource("1_kjn4i")
+region = Rect2(66, 183, 12, 12)
+
+[node name="HerbHorse" type="Sprite2D" unique_id=1644223377]
+texture_filter = 1
+texture = SubResource("AtlasTexture_plm06")
+script = ExtResource("2_kjn4i")
+metadata/_custom_type_script = "uid://cg0d0ytshw1ti"

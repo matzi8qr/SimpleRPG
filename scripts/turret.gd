@@ -2,12 +2,11 @@ class_name Turret extends Entity2D
 
 
 @onready var room: Room2D = get_parent().get_parent();
-@onready var game: Game2D = room.get_parent();
 
 @export var projectile: PackedScene;
 @onready var tile_pos: Vector2i = room.get_map_position(position);
 
-@export var reload_time: int = 3;
+@export var reload_time: int = 2;
 var reload_counter: int;
 @export var direction: Vector2i = Vector2i.RIGHT;  # please use a normal orthogonal vector ^^
 

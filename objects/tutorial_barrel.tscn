@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cykoul5p7dwli"]
+
+[ext_resource type="Texture2D" uid="uid://dmc63j7baq52o" path="res://assets/urizen_onetwobit_tileset__v2d0.png" id="1_f1alr"]
+[ext_resource type="Script" uid="uid://bq2tp1cuad858" path="res://scripts/tutorial_barrel.gd" id="2_f5piy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl32c"]
+atlas = ExtResource("1_f1alr")
+region = Rect2(157, 469, 12, 12)
+
+[node name="PushBarrel" type="Sprite2D" unique_id=1410155713]
+z_index = 7
+texture_filter = 1
+texture = SubResource("AtlasTexture_bl32c")
+script = ExtResource("2_f5piy")
+metadata/_custom_type_script = "uid://cg0d0ytshw1ti"

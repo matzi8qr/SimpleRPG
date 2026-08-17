@@ -1,7 +1,6 @@
 class_name Lever extends Entity2D
 
 @onready var room: Room2D = get_parent().get_parent();
-@onready var game: Game2D = room.get_parent();
 
 signal toggled_on;
 signal toggled_off;

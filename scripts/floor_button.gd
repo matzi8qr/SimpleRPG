@@ -3,7 +3,6 @@ class_name FloorButton extends Entity2D
 
 # button should press and unpress based on its own detection
 @onready var room: Room2D = get_parent().get_parent();
-@onready var game: Game2D = room.get_parent();
 
 @onready var tile_pos: Vector2i = room.get_map_position(position);
 

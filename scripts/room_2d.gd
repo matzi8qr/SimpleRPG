@@ -95,6 +95,7 @@ func try_push_entity(tile: Vector2i, direction: Vector2i) -> bool:
 	
 	# 'pushing' the entity
 	push_entity.move_to_tile(tile + direction, get_local_position(tile + direction));
+	push_entity.get_pushed();
 	return true;  # true if entity pushed or tile is empty
 	
 

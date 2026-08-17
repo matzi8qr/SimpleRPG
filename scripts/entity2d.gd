@@ -1,5 +1,6 @@
 class_name Entity2D extends Sprite2D
 
+@onready var game: Game2D = get_tree().root.get_node("/root/Game");
 
 @export var cur_coords: Vector2i;
 @export var is_walkable: bool;
@@ -28,3 +29,8 @@ func hit() -> void:
 # also TODO have enemies turn this into melee 'hit'
 func on_interact() -> String:
 	return "you found: " + self.to_string();
+	
+
+func get_pushed() -> void:
+	# TODO override enemies get stunned/staggered
+	pass
